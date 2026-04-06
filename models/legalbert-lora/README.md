@@ -1,206 +1,208 @@
 ---
 base_model: nlpaueb/legal-bert-base-uncased
 library_name: peft
+language:
+- en
 tags:
-- base_model:adapter:nlpaueb/legal-bert-base-uncased
+- legal
+- contract
+- text-classification
 - lora
-- transformers
+- peft
+- bert
+- cuad
+- base_model:adapter:nlpaueb/legal-bert-base-uncased
+license: mit
 ---
 
-# Model Card for Model ID
+# LegalBERT · Contract Clause Classifier (LoRA)
 
-<!-- Provide a quick summary of what the model is/does. -->
+A LoRA adapter fine-tuned on top of [`nlpaueb/legal-bert-base-uncased`](https://huggingface.co/nlpaueb/legal-bert-base-uncased) for multi-class contract clause classification across all **41 CUAD clause types**.
 
+The model significantly outperforms a random baseline (accuracy 1.9% → **69.8%**, macro F1 0.005 → **0.650**) after 5 epochs of training.
 
+---
 
 ## Model Details
 
-### Model Description
+| Property | Value |
+|---|---|
+| **Base model** | `nlpaueb/legal-bert-base-uncased` |
+| **Adapter type** | LoRA (PEFT) |
+| **Task** | Multi-class sequence classification |
+| **Classes** | 41 CUAD clause types |
+| **LoRA rank (r)** | 16 |
+| **LoRA alpha** | 32 |
+| **LoRA dropout** | 0.1 |
+| **Target modules** | `query`, `value` |
+| **Max sequence length** | 512 tokens |
+| **PEFT version** | 0.18.1 |
+
+---
+
+## Training
+
+The adapter was trained for **5 epochs** on the [CUAD dataset](https://huggingface.co/datasets/theatticusproject/cuad-qa), which contains expert-labelled contract clauses across 41 legal categories.
+
+### Training curve
+
+| Epoch | Train Loss | Val Loss | Accuracy | Macro F1 |
+|---|---|---|---|---|
+| 1 | 6.257 | 4.771 | 39.1% | 0.290 |
+| 2 | 3.233 | 2.846 | 60.6% | 0.535 |
+| 3 | 2.426 | 2.376 | 67.6% | 0.621 |
+| 4 | 2.165 | 2.198 | 69.4% | 0.644 |
+| 5 | 2.060 | 2.147 | **69.8%** | **0.650** |
+
+### Baseline comparison
+
+| Metric | Baseline (majority class) | This model |
+|---|---|---|
+| Accuracy | 1.9% | **69.8%** |
+| Macro F1 | 0.005 | **0.650** |
+
+---
+
+## Usage
+
+This is a PEFT LoRA adapter — you need to load it on top of the base model using the `peft` library.
+
+### Installation
+
+```bash
+pip install transformers peft
+```
+
+### Inference
+
+```python
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from peft import PeftModel
+
+base_model_id = "nlpaueb/legal-bert-base-uncased"
+adapter_id = "Mokshith31/legalbert-contract-clause-classification"
+
+tokenizer = AutoTokenizer.from_pretrained(base_model_id)
+base_model = AutoModelForSequenceClassification.from_pretrained(
+    base_model_id,
+    num_labels=41
+)
+model = PeftModel.from_pretrained(base_model, adapter_id)
+model.eval()
+
+clause = "Either party may terminate this Agreement upon 30 days written notice."
+
+inputs = tokenizer(clause, return_tensors="pt", truncation=True, max_length=512)
+outputs = model(**inputs)
+predicted_class = outputs.logits.argmax(dim=-1).item()
+print(f"Predicted label: {predicted_class}")
+```
+
+### With pipeline (merged weights)
+
+You can also merge the adapter into the base model and use the standard `pipeline` API:
+
+```python
+from peft import PeftModel
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+base = AutoModelForSequenceClassification.from_pretrained(
+    "nlpaueb/legal-bert-base-uncased", num_labels=41
+)
+model = PeftModel.from_pretrained(base, "Mokshith31/legalbert-contract-clause-classification")
+model = model.merge_and_unload()  # fuse LoRA weights
+
+tokenizer = AutoTokenizer.from_pretrained("nlpaueb/legal-bert-base-uncased")
+```
+
+---
+
+## CUAD Label Schema
+
+The model predicts one of the following 41 clause categories from the [CUAD dataset](https://www.atticusprojectai.org/cuad):
+
+| ID | Clause Type |
+|---|---|
+| 0 | Document Name |
+| 1 | Parties |
+| 2 | Agreement Date |
+| 3 | Effective Date |
+| 4 | Expiration Date |
+| 5 | Renewal Term |
+| 6 | Notice Period to Terminate Renewal |
+| 7 | Governing Law |
+| 8 | Most Favored Nation |
+| 9 | Non-Compete |
+| 10 | Exclusivity |
+| 11 | No-Solicit of Customers |
+| 12 | No-Solicit of Employees |
+| 13 | Non-Disparagement |
+| 14 | Termination for Convenience |
+| 15 | ROFR / ROFO / ROFN |
+| 16 | Change of Control |
+| 17 | Anti-Assignment |
+| 18 | Revenue / Profit Sharing |
+| 19 | Price Restriction |
+| 20 | Minimum Commitment |
+| 21 | Volume Restriction |
+| 22 | IP Ownership Assignment |
+| 23 | Joint IP Ownership |
+| 24 | License Grant |
+| 25 | Non-Transferable License |
+| 26 | Affiliate License-Licensor |
+| 27 | Affiliate License-Licensee |
+| 28 | Unlimited / All-You-Can-Eat License |
+| 29 | Irrevocable or Perpetual License |
+| 30 | Source Code Escrow |
+| 31 | Post-Termination Services |
+| 32 | Audit Rights |
+| 33 | Uncapped Liability |
+| 34 | Cap on Liability |
+| 35 | Liquidated Damages |
+| 36 | Warranty Duration |
+| 37 | Insurance |
+| 38 | Covenant Not to Sue |
+| 39 | Third Party Beneficiary |
+| 40 | Other |
+
+---
+
+## Limitations and Bias
+
+- Trained exclusively on **English-language** commercial contracts from the CUAD dataset. Performance may degrade on other legal domains (e.g. employment, real estate) or non-US contract styles.
+- Some CUAD classes have very **few training examples** (e.g. class 2 has only 1 support sample), which leads to lower per-class performance on rare clause types.
+- The model is **not a substitute for legal advice**. Predictions should be reviewed by qualified professionals before use in any legal workflow.
+- Class imbalance in the CUAD dataset means the model may favour more common clause types.
+
+---
+
+## Citation
+
+If you use this model, please cite the original CUAD dataset:
+
+```bibtex
+@article{hendrycks2021cuad,
+  title={CUAD: An Expert-Annotated NLP Dataset for Legal Contract Review},
+  author={Hendrycks, Dan and Burns, Collin and Chen, Anya and Ball, Spencer},
+  journal={arXiv preprint arXiv:2103.06268},
+  year={2021}
+}
+```
+
+And the LegalBERT base model:
+
+```bibtex
+@inproceedings{chalkidis-etal-2020-legal,
+  title={LEGAL-BERT: The Muppets straight out of Law School},
+  author={Chalkidis, Ilias and Fergadiotis, Manos and Malakasiotis, Prodromos and Aletras, Nikolaos and Androutsopoulos, Ion},
+  booktitle={Findings of EMNLP},
+  year={2020}
+}
+```
+
+---
 
-<!-- Provide a longer summary of what this model is. -->
-
-
-
-- **Developed by:** [More Information Needed]
-- **Funded by [optional]:** [More Information Needed]
-- **Shared by [optional]:** [More Information Needed]
-- **Model type:** [More Information Needed]
-- **Language(s) (NLP):** [More Information Needed]
-- **License:** [More Information Needed]
-- **Finetuned from model [optional]:** [More Information Needed]
-
-### Model Sources [optional]
-
-<!-- Provide the basic links for the model. -->
-
-- **Repository:** [More Information Needed]
-- **Paper [optional]:** [More Information Needed]
-- **Demo [optional]:** [More Information Needed]
-
-## Uses
-
-<!-- Address questions around how the model is intended to be used, including the foreseeable users of the model and those affected by the model. -->
-
-### Direct Use
-
-<!-- This section is for the model use without fine-tuning or plugging into a larger ecosystem/app. -->
-
-[More Information Needed]
-
-### Downstream Use [optional]
-
-<!-- This section is for the model use when fine-tuned for a task, or when plugged into a larger ecosystem/app -->
-
-[More Information Needed]
-
-### Out-of-Scope Use
-
-<!-- This section addresses misuse, malicious use, and uses that the model will not work well for. -->
-
-[More Information Needed]
-
-## Bias, Risks, and Limitations
-
-<!-- This section is meant to convey both technical and sociotechnical limitations. -->
-
-[More Information Needed]
-
-### Recommendations
-
-<!-- This section is meant to convey recommendations with respect to the bias, risk, and technical limitations. -->
-
-Users (both direct and downstream) should be made aware of the risks, biases and limitations of the model. More information needed for further recommendations.
-
-## How to Get Started with the Model
-
-Use the code below to get started with the model.
-
-[More Information Needed]
-
-## Training Details
-
-### Training Data
-
-<!-- This should link to a Dataset Card, perhaps with a short stub of information on what the training data is all about as well as documentation related to data pre-processing or additional filtering. -->
-
-[More Information Needed]
-
-### Training Procedure
-
-<!-- This relates heavily to the Technical Specifications. Content here should link to that section when it is relevant to the training procedure. -->
-
-#### Preprocessing [optional]
-
-[More Information Needed]
-
-
-#### Training Hyperparameters
-
-- **Training regime:** [More Information Needed] <!--fp32, fp16 mixed precision, bf16 mixed precision, bf16 non-mixed precision, fp16 non-mixed precision, fp8 mixed precision -->
-
-#### Speeds, Sizes, Times [optional]
-
-<!-- This section provides information about throughput, start/end time, checkpoint size if relevant, etc. -->
-
-[More Information Needed]
-
-## Evaluation
-
-<!-- This section describes the evaluation protocols and provides the results. -->
-
-### Testing Data, Factors & Metrics
-
-#### Testing Data
-
-<!-- This should link to a Dataset Card if possible. -->
-
-[More Information Needed]
-
-#### Factors
-
-<!-- These are the things the evaluation is disaggregating by, e.g., subpopulations or domains. -->
-
-[More Information Needed]
-
-#### Metrics
-
-<!-- These are the evaluation metrics being used, ideally with a description of why. -->
-
-[More Information Needed]
-
-### Results
-
-[More Information Needed]
-
-#### Summary
-
-
-
-## Model Examination [optional]
-
-<!-- Relevant interpretability work for the model goes here -->
-
-[More Information Needed]
-
-## Environmental Impact
-
-<!-- Total emissions (in grams of CO2eq) and additional considerations, such as electricity usage, go here. Edit the suggested text below accordingly -->
-
-Carbon emissions can be estimated using the [Machine Learning Impact calculator](https://mlco2.github.io/impact#compute) presented in [Lacoste et al. (2019)](https://arxiv.org/abs/1910.09700).
-
-- **Hardware Type:** [More Information Needed]
-- **Hours used:** [More Information Needed]
-- **Cloud Provider:** [More Information Needed]
-- **Compute Region:** [More Information Needed]
-- **Carbon Emitted:** [More Information Needed]
-
-## Technical Specifications [optional]
-
-### Model Architecture and Objective
-
-[More Information Needed]
-
-### Compute Infrastructure
-
-[More Information Needed]
-
-#### Hardware
-
-[More Information Needed]
-
-#### Software
-
-[More Information Needed]
-
-## Citation [optional]
-
-<!-- If there is a paper or blog post introducing the model, the APA and Bibtex information for that should go in this section. -->
-
-**BibTeX:**
-
-[More Information Needed]
-
-**APA:**
-
-[More Information Needed]
-
-## Glossary [optional]
-
-<!-- If relevant, include terms and calculations in this section that can help readers understand the model or model card. -->
-
-[More Information Needed]
-
-## More Information [optional]
-
-[More Information Needed]
-
-## Model Card Authors [optional]
-
-[More Information Needed]
-
-## Model Card Contact
-
-[More Information Needed]
 ### Framework versions
 
+- Transformers
 - PEFT 0.18.1
