@@ -6,8 +6,8 @@ import json
 import logging
 from typing import Any, Dict, List
 
-from inference.clause_classifier import predict_batch, split_into_clauses
-from risk_filter import filter_important_clauses
+from .inference.clause_classifier import predict_batch, split_into_clauses
+from .risk_filter import filter_important_clauses
 
 
 logger = logging.getLogger(__name__)
