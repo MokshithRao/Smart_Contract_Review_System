@@ -25,7 +25,7 @@ ADAPTER_DIR = REPO_ROOT / "models" / "legalbert-lora"
 LABEL_MAP_PATH = REPO_ROOT / "configs" / "label_mapping.json"
 DEFAULT_TOP_K = 3
 MAX_LENGTH = 256
-CONFIDENCE_THRESHOLD = 0.4
+CONFIDENCE_THRESHOLD = 0.6
 
 
 _MODEL = None
@@ -233,13 +233,96 @@ def predict_batch(texts: List[str]) -> List[Dict[str, Any]]:
 
 
 def split_into_clauses(text: str) -> List[str]:
-	"""Split text into clause-like segments using sentence and newline boundaries."""
+	"""Split legal text into structure-aware clause units."""
 
 	if not text:
 		return []
 
-	parts = re.split(r"\.\s+|\n+", text)
-	return [part.strip() for part in parts if part and part.strip()]
+	clauses: List[str] = []
+	for section in split_sections(text):
+		for part in split_section_into_clauses(section):
+			if is_valid_clause(part):
+				clauses.append(part)
+
+	return clauses
+
+
+def split_by_section_numbers(text: str) -> List[str]:
+	"""Split text into section-based chunks before finer clause splitting."""
+
+	if not text:
+		return []
+
+	return split_sections(text)
+
+
+def split_sections(text: str) -> List[str]:
+	"""Extract numbered legal sections from raw contract text."""
+
+	if not text:
+		return []
+
+	pattern = re.compile(r"(\d+\.\d+)\s+(.*?)(?=(?:\d+\.\d+\s+)|$)", re.DOTALL)
+	sections = [f"{match.group(1)} {match.group(2).strip()}" for match in pattern.finditer(text)]
+	if sections:
+		return sections
+
+	return [text.strip()]
+
+
+def split_section_into_clauses(section: str) -> List[str]:
+	"""Split a section into smaller clause candidates."""
+
+	if not section:
+		return []
+
+	parts = re.split(r";\s+|\.\s+", section)
+	return [part.strip() for part in parts if part.strip()]
+
+
+def is_valid_clause(text: str) -> bool:
+	"""Filter out fragments and non-clausal text."""
+
+	cleaned = text.strip()
+	if not cleaned:
+		return False
+
+	words = cleaned.split()
+	if len(words) <= 10:
+		return False
+	if len(words) > 120:
+		return False
+	if not cleaned[0].isupper():
+		return False
+
+	lowered = cleaned.lower()
+	return any(keyword in lowered for keyword in ["shall", "may", "must", "agree", "liable", "terminate"])
+
+
+def merge_clauses(clauses: List[str]) -> List[str]:
+	"""Merge short fragments into adjacent content to reduce broken clauses."""
+
+	merged: List[str] = []
+	buffer = ""
+
+	for clause in clauses:
+		cleaned = clause.strip()
+		if not cleaned:
+			continue
+
+		if len(cleaned.split()) < 12:
+			buffer = f"{buffer} {cleaned}".strip()
+			continue
+
+		if buffer:
+			merged.append(buffer)
+			buffer = ""
+		merged.append(cleaned)
+
+	if buffer:
+		merged.append(buffer)
+
+	return merged
 
 
 if __name__ == "__main__":

@@ -6,7 +6,18 @@ high-importance items for downstream contract-review workflows.
 
 from __future__ import annotations
 
+import logging
+import re
 from typing import Any, Dict, List
+
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+try:
+	from sentence_transformers import SentenceTransformer
+except ImportError:  # pragma: no cover - optional dependency fallback path
+	SentenceTransformer = None  # type: ignore[assignment]
 
 
 # Category descriptions adapted from the provided category descriptions sheet.
@@ -59,13 +70,8 @@ HIGH_RISK_LABELS = {
 	"uncapped liability",
 	"ip ownership assignment",
 	"termination for convenience",
-	"change of control",
-	"anti-assignment",
-	"non-compete",
-	"exclusivity",
 	"liquidated damages",
 	"covenant not to sue",
-	"source code escrow",
 }
 
 MEDIUM_RISK_LABELS = {
@@ -83,6 +89,9 @@ MEDIUM_RISK_LABELS = {
 	"non-transferable license",
 	"irrevocable or perpetual license",
 	"third party beneficiary",
+	"anti-assignment",
+	"exclusivity",
+	"non-compete",
 }
 
 HIGH_RISK_KEYWORDS = {
@@ -114,8 +123,133 @@ MEDIUM_RISK_KEYWORDS = {
 	"right of first offer",
 }
 
+ONE_SIDED_HIGH_RISK_PATTERNS = {
+	"sole discretion": 2,
+	"its sole discretion": 2,
+	"absolute discretion": 2,
+	"without notice": 2,
+	"immediate termination": 2,
+	"unilateral": 2,
+	"shall remain with company": 2,
+	"company is not liable": 2,
+	"not liable": 2,
+	"shall not": 1,
+	"may not": 1,
+	"without prior written approval": 1,
+	"without prior written consent": 1,
+	"at any time": 1,
+	"for any reason": 1,
+	"notwithstanding anything to the contrary": 1,
+	"indemnify and hold harmless": 2,
+	"waive": 1,
+	"no liability": 2,
+	"disclaims all": 2,
+	"exclusive remedy": 1,
+	"injunctive relief": 1,
+}
+
+BALANCED_LANGUAGE_PATTERNS = {
+	"either party",
+	"both parties",
+	"mutual",
+	"each party",
+	"respectively",
+	"by either party",
+}
+
 _RISK_ORDER = {"HIGH": 0, "MEDIUM": 1, "LOW": 2}
 _RISK_SCORE = {"HIGH": 2, "MEDIUM": 1, "LOW": 0}
+SEMANTIC_DEDUP_THRESHOLD = 0.30
+EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
+
+
+logger = logging.getLogger(__name__)
+
+
+_EMBEDDING_MODEL: SentenceTransformer | None = None
+
+
+def _normalize_for_similarity(text: str) -> str:
+	"""Normalize text for semantic similarity comparisons."""
+
+	normalized = text.lower()
+	normalized = re.sub(r"[^a-z0-9\s]", " ", normalized)
+	normalized = re.sub(r"\s+", " ", normalized).strip()
+	return normalized
+
+
+def _get_embedding_model() -> SentenceTransformer | None:
+	"""Lazily load the embedding model used for semantic deduplication."""
+
+	global _EMBEDDING_MODEL
+	if SentenceTransformer is None:
+		return None
+
+	if _EMBEDDING_MODEL is None:
+		_EMBEDDING_MODEL = SentenceTransformer(EMBEDDING_MODEL_NAME)
+
+	return _EMBEDDING_MODEL
+
+
+def _deduplicate_clauses_tfidf(clauses: List[Dict[str, Any]], normalized_texts: List[str]) -> List[Dict[str, Any]]:
+	"""Fallback semantic deduplication using TF-IDF cosine similarity."""
+
+	vectorizer = TfidfVectorizer(ngram_range=(1, 2), min_df=1)
+	matrix = vectorizer.fit_transform(normalized_texts)
+
+	kept_indices: List[int] = []
+	for index in range(len(clauses)):
+		if not kept_indices:
+			kept_indices.append(index)
+			continue
+
+		same_label_kept = [kept for kept in kept_indices if clauses[kept].get("label") == clauses[index].get("label")]
+		if not same_label_kept:
+			kept_indices.append(index)
+			continue
+
+		similarities = cosine_similarity(matrix[index], matrix[same_label_kept])[0]
+		if float(similarities.max()) >= SEMANTIC_DEDUP_THRESHOLD:
+			continue
+
+		kept_indices.append(index)
+
+	return [clauses[index] for index in kept_indices]
+
+
+def _deduplicate_clauses_embeddings(clauses: List[Dict[str, Any]], normalized_texts: List[str]) -> List[Dict[str, Any]] | None:
+	"""Preferred semantic deduplication using sentence embeddings."""
+
+	model = _get_embedding_model()
+	if model is None:
+		return None
+
+	try:
+		embeddings = model.encode(normalized_texts, normalize_embeddings=True)
+	except Exception as exc:  # pragma: no cover - runtime fallback path
+		logger.warning("Embedding-based dedup unavailable, falling back to TF-IDF: %s", exc)
+		return None
+
+	kept_indices: List[int] = []
+	for index in range(len(clauses)):
+		if not kept_indices:
+			kept_indices.append(index)
+			continue
+
+		same_label_kept = [kept for kept in kept_indices if clauses[kept].get("label") == clauses[index].get("label")]
+		if not same_label_kept:
+			kept_indices.append(index)
+			continue
+
+		candidate = embeddings[index]
+		existing = embeddings[same_label_kept]
+		similarities = np.dot(existing, candidate)
+		if float(np.max(similarities)) >= SEMANTIC_DEDUP_THRESHOLD:
+			continue
+
+		kept_indices.append(index)
+
+	return [clauses[index] for index in kept_indices]
 
 
 def _find_matching_keyword(lowered_text: str, keywords: set[str]) -> str | None:
@@ -171,6 +305,58 @@ def classify_risk(clause: Dict[str, Any]) -> Dict[str, str]:
 	return {"risk_level": risk_level, "reason": reason}
 
 
+def detect_one_sided_bias(text: str) -> Dict[str, Any]:
+	"""Score whether a clause appears one-sided and return supporting triggers."""
+
+	cleaned = (text or "").strip()
+	if not cleaned:
+		return {"is_one_sided": False, "bias_score": 0, "triggers": []}
+
+	lowered = cleaned.lower()
+	triggers: List[str] = []
+	bias_score = 0
+
+	for phrase, weight in ONE_SIDED_HIGH_RISK_PATTERNS.items():
+		if phrase in lowered:
+			triggers.append(phrase)
+			bias_score += weight
+
+	if any(phrase in lowered for phrase in BALANCED_LANGUAGE_PATTERNS):
+		bias_score -= 2
+
+	# A simple lexical check: more obligations than rights can indicate one-sided burden.
+	obligation_hits = len(re.findall(r"\\b(shall|must|required to|obligated to)\\b", lowered))
+	right_hits = len(re.findall(r"\\b(may|entitled to|has the right to)\\b", lowered))
+	if obligation_hits > right_hits:
+		bias_score += 1
+
+	if "only" in lowered:
+		bias_score += 1
+
+	return {
+		"is_one_sided": bias_score >= 2,
+		"bias_score": bias_score,
+		"triggers": sorted(set(triggers)),
+	}
+
+
+def deduplicate_clauses(clauses: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+	"""Deduplicate near-duplicate clauses using cosine similarity of TF-IDF vectors."""
+
+	if len(clauses) <= 1:
+		return clauses
+
+	normalized_texts = [_normalize_for_similarity(str(clause.get("text", ""))) for clause in clauses]
+	if not any(normalized_texts):
+		return clauses
+
+	embedding_deduped = _deduplicate_clauses_embeddings(clauses, normalized_texts)
+	if embedding_deduped is not None:
+		return embedding_deduped
+
+	return _deduplicate_clauses_tfidf(clauses, normalized_texts)
+
+
 def filter_important_clauses(clauses: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 	"""Keep only high/medium risk clauses and sort by risk then confidence."""
 
@@ -181,7 +367,7 @@ def filter_important_clauses(clauses: List[Dict[str, Any]]) -> List[Dict[str, An
 			continue
 
 		confidence = float(clause.get("confidence", 0.0) or 0.0)
-		if confidence < 0.4:
+		if confidence < 0.65:
 			continue
 
 		risk_meta = classify_risk(clause)
@@ -201,4 +387,53 @@ def filter_important_clauses(clauses: List[Dict[str, Any]]) -> List[Dict[str, An
 		)
 
 	enriched.sort(key=lambda item: (_RISK_ORDER[item["risk"]], -item["confidence"]))
-	return enriched
+	return deduplicate_clauses(enriched)
+
+
+def filter_one_sided_high_risk_clauses(
+	clauses: List[Dict[str, Any]],
+	min_confidence: float = 0.65,
+) -> List[Dict[str, Any]]:
+	"""Keep only HIGH-risk clauses that are likely one-sided.
+
+	This is the preferred filter for downstream RAG rewriting where we only
+	want potentially unfair clauses to be rewritten into balanced language.
+	"""
+
+	enriched: List[Dict[str, Any]] = []
+	for clause in clauses:
+		text = str(clause.get("text", "")).strip()
+		if not text:
+			continue
+
+		confidence = float(clause.get("confidence", 0.0) or 0.0)
+		if confidence < min_confidence:
+			continue
+
+		risk_meta = classify_risk(clause)
+		if risk_meta.get("risk_level") != "HIGH":
+			continue
+
+		bias_meta = detect_one_sided_bias(text)
+		if not bias_meta["is_one_sided"]:
+			continue
+
+		reason = risk_meta["reason"]
+		if bias_meta["triggers"]:
+			reason = f"{reason}. One-sided triggers: {', '.join(bias_meta['triggers'])}"
+
+		enriched.append(
+			{
+				"text": text,
+				"label": str(clause.get("label", "")),
+				"risk": "HIGH",
+				"risk_score": _RISK_SCORE["HIGH"],
+				"confidence": confidence,
+				"bias_score": int(bias_meta["bias_score"]),
+				"one_sided": True,
+				"reason": reason,
+			}
+		)
+
+	enriched.sort(key=lambda item: (-item["bias_score"], -item["confidence"]))
+	return deduplicate_clauses(enriched)
