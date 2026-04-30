@@ -8,72 +8,68 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from pathlib import Path
 
-# Paths
-project_root = Path(__file__).resolve().parent.parent
-input_file = project_root / "clean_clause_corpus.json"
-index_file = project_root / "rag" / "faiss_index.index"
-clauses_file = project_root / "rag" / "clauses_metadata.json"
+# paths
+ROOT = Path(__file__).resolve().parent.parent
+CORPUS_FILE = ROOT / "clean_clause_corpus.json"
+INDEX_OUT   = ROOT / "rag" / "faiss_index.index"
+META_OUT    = ROOT / "rag" / "clauses_metadata.json"
 
-# Load model
+SUBSET_SIZE = 50000   # sample size (full corpus is too slow on CPU)
+BATCH_SIZE  = 512
+EMBED_DIM   = 384     # output dim of all-MiniLM-L6-v2
+
+# load embedding model
 print("Loading embedding model...", flush=True)
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# FAISS setup
-dimension = 384
-index = faiss.IndexFlatL2(dimension)
+# faiss index (flat L2 = brute force, fine for 50k vectors)
+index = faiss.IndexFlatL2(EMBED_DIM)
 
-# Load corpus
+# load the cleaned clause corpus
 print("Loading corpus...", flush=True)
-with open(input_file, "r", encoding="utf-8") as f:
+with open(CORPUS_FILE, "r", encoding="utf-8") as f:
     corpus = json.load(f)
+print(f"Full corpus size: {len(corpus)}", flush=True)
 
-print(f"Full corpus: {len(corpus)} clauses", flush=True)
-
-# Sample 50K clauses for CPU-friendly indexing
-SUBSET_SIZE = 50000
+# take a random subset so this runs in ~20 min on CPU
 random.seed(42)
 if len(corpus) > SUBSET_SIZE:
     corpus = random.sample(corpus, SUBSET_SIZE)
-    print(f"Sampled {SUBSET_SIZE} clauses for indexing", flush=True)
+    print(f"Using random sample of {SUBSET_SIZE} clauses", flush=True)
 
-batch_size = 512
-batch_texts = []
+# embed and index in batches
+batch = []
 metadata = []
 
-print("Starting embedding + indexing...\n", flush=True)
+print("Embedding and indexing...\n", flush=True)
 
 for i, entry in enumerate(corpus):
-    clause = entry["clause"]
-    batch_texts.append(clause)
+    batch.append(entry["clause"])
     metadata.append({
-        "clause": clause,
+        "clause": entry["clause"],
         "source": entry.get("source", ""),
-        "label": entry.get("label", [])
+        "label":  entry.get("label", [])
     })
 
-    if len(batch_texts) == batch_size:
-        embeddings = model.encode(batch_texts, show_progress_bar=False)
-        embeddings = np.array(embeddings).astype("float32")
-        index.add(embeddings)
-        batch_texts = []
+    if len(batch) == BATCH_SIZE:
+        vecs = model.encode(batch, show_progress_bar=False)
+        vecs = np.array(vecs).astype("float32")
+        index.add(vecs)
+        batch = []
+        print(f"  {i+1}/{len(corpus)} done", flush=True)
 
-        processed = i + 1
-        print(f"Processed {processed}/{len(corpus)} clauses", flush=True)
+# leftover batch
+if batch:
+    vecs = model.encode(batch, show_progress_bar=False)
+    vecs = np.array(vecs).astype("float32")
+    index.add(vecs)
 
-# Handle remaining batch
-if batch_texts:
-    embeddings = model.encode(batch_texts, show_progress_bar=False)
-    embeddings = np.array(embeddings).astype("float32")
-    index.add(embeddings)
+print(f"\nTotal vectors indexed: {index.ntotal}", flush=True)
 
-print(f"\nTotal indexed: {index.ntotal}", flush=True)
-
-# Save FAISS index
-faiss.write_index(index, str(index_file))
-
-# Save metadata (needed for retrieval)
-with open(clauses_file, "w", encoding="utf-8") as f:
+# save everything
+faiss.write_index(index, str(INDEX_OUT))
+with open(META_OUT, "w", encoding="utf-8") as f:
     json.dump(metadata, f)
 
-print(f"Saved FAISS index to {index_file}", flush=True)
-print(f"Saved clause metadata to {clauses_file}", flush=True)
+print(f"Index saved to {INDEX_OUT}", flush=True)
+print(f"Metadata saved to {META_OUT}", flush=True)
