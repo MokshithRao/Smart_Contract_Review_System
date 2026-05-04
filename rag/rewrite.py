@@ -9,99 +9,139 @@ from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 from huggingface_hub import InferenceClient
 
-# Load environment
 load_dotenv()
 
-# Paths
-project_root = Path(__file__).resolve().parent.parent
-index_file = project_root / "rag" / "faiss_index.index"
-clauses_file = project_root / "rag" / "clauses_metadata.json"
+# paths
+ROOT = Path(__file__).resolve().parent.parent
+INDEX_PATH = ROOT / "rag" / "faiss_index.index"
+META_PATH  = ROOT / "rag" / "clauses_metadata.json"
 
-# Load FAISS index and metadata
+# load faiss index + metadata
 print("Loading FAISS index and metadata...")
-index = faiss.read_index(str(index_file))
-with open(clauses_file, "r", encoding="utf-8") as f:
-    metadata = json.load(f)
+faiss_index = faiss.read_index(str(INDEX_PATH))
+with open(META_PATH, "r", encoding="utf-8") as f:
+    clause_metadata = json.load(f)
 
-# Load embedding model
+# embedding model (same one used during indexing)
 print("Loading embedding model...")
-embed_model = SentenceTransformer("all-MiniLM-L6-v2")
+embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Setup HuggingFace Inference client
-hf_client = InferenceClient(token=os.getenv("HF_API_TOKEN"))
-LLM_MODEL = "meta-llama/Meta-Llama-3-8B-Instruct"
+# llm setup
+llm = InferenceClient(token=os.getenv("HF_API_TOKEN"))
+MODEL_NAME = "meta-llama/Meta-Llama-3-8B-Instruct"
 
 
-def retrieve_similar_clauses(clause_text, top_k=5):
-    """Retrieve top_k similar clauses from FAISS index."""
-    query_embedding = embed_model.encode([clause_text])
-    query_embedding = np.array(query_embedding).astype("float32")
+def get_similar_clauses(clause_text, k=5):
+    """Find k most similar clauses from the FAISS index"""
+    vec = embedder.encode([clause_text])
+    vec = np.array(vec).astype("float32")
 
-    distances, indices = index.search(query_embedding, top_k)
+    dists, idxs = faiss_index.search(vec, k)
 
-    results = []
-    for dist, idx in zip(distances[0], indices[0]):
-        if idx < len(metadata):
-            results.append({
-                "clause": metadata[idx]["clause"],
-                "source": metadata[idx]["source"],
-                "label": metadata[idx]["label"],
-                "distance": float(dist)
+    hits = []
+    for d, i in zip(dists[0], idxs[0]):
+        if i < len(clause_metadata):
+            hits.append({
+                "clause":  clause_metadata[i]["clause"],
+                "source":  clause_metadata[i]["source"],
+                "label":   clause_metadata[i]["label"],
+                "distance": float(d)
             })
-    return results
+    return hits
 
 
-def rewrite_clause(original_clause, clause_type, similar_clauses):
-    """Use LLM to rewrite a clause in a fairer and clearer way."""
-    # Format similar clauses for the prompt
-    similar_text = ""
+def call_llm(prompt):
+    """Send a prompt to the LLM and return the response text"""
+    resp = llm.chat_completion(
+        model=MODEL_NAME,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=512
+    )
+    return resp.choices[0].message.content.strip()
+
+
+def rewrite_clause(original, clause_type, similar_clauses):
+    """Rewrite a contract clause using RAG context from similar clauses"""
+
+    # format the similar clauses as numbered examples
+    examples = ""
     for i, sc in enumerate(similar_clauses, 1):
-        similar_text += f"\n{i}. \"{sc['clause']}\"\n   (Label: {', '.join(sc['label'])})\n"
+        labels = ", ".join(sc["label"])
+        examples += f'\n{i}. "{sc["clause"]}"\n   (Label: {labels})\n'
 
-    prompt = f"""You are a legal contract expert. Your task is to rewrite a contract clause to make it fairer, clearer, and more balanced for both parties.
+    prompt = f"""You are a legal contract expert. Rewrite the following contract clause to make it fairer, clearer, and more balanced for both parties.
 
-**Original Clause:**
-"{original_clause}"
+Original Clause:
+"{original}"
 
-**Clause Type:** {clause_type}
+Clause Type: {clause_type}
 
-**Similar clauses from a corpus of standard legal contracts (use these as reference for fair language):**
-{similar_text}
+Similar clauses from standard legal contracts (use as reference for fair language):
+{examples}
 
-**Instructions:**
-1. Rewrite the clause to be fair to both parties (mutual obligations where possible).
-2. Use clear, plain language that non-lawyers can understand.
-3. Keep the legal intent intact — do not remove necessary protections.
-4. Use the similar clauses above as examples of standard, balanced language.
-5. Return ONLY the rewritten clause text, nothing else.
+Instructions:
+1. Rewrite the clause to be fair to both parties (mutual obligations where possible)
+2. Use clear, plain language that non-lawyers can understand
+3. Keep the legal intent intact
+4. Use the similar clauses above as examples of balanced language
+5. Return ONLY the rewritten clause text, nothing else
 
-**Rewritten Clause:**"""
+Rewritten Clause:"""
 
     try:
-        response = hf_client.chat_completion(
-            model=LLM_MODEL,
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=512
-        )
-        return response.choices[0].message.content.strip()
+        return call_llm(prompt)
     except Exception as e:
-        return f"[Error generating rewrite: {e}]"
+        return f"[Rewrite failed: {e}]"
 
 
-# --- Test the module ---
+def explain_changes(original, rewritten, clause_type):
+    """Compare original vs rewritten clause and explain what changed"""
+
+    prompt = f"""You are a legal contract expert. Compare the two clauses below and explain what changed and why.
+
+Clause Type: {clause_type}
+
+Original Clause:
+"{original}"
+
+Rewritten Clause:
+"{rewritten}"
+
+Instructions:
+1. List each change as a bullet point
+2. For each change, explain why it makes the clause fairer or clearer
+3. Highlight if one-sided terms were made mutual
+4. Note if missing protections (like notice periods) were added
+5. Keep it concise and easy for non-lawyers to understand
+
+Changes:"""
+
+    try:
+        return call_llm(prompt)
+    except Exception as e:
+        return f"[Explanation failed: {e}]"
+
+
 if __name__ == "__main__":
+    # test clause
     test_clause = "The company may terminate this agreement at any time without notice."
-    clause_type = "termination for convenience"
+    test_type = "termination for convenience"
 
-    print(f"\nOriginal Clause:\n\"{test_clause}\"\n")
-    print(f"Clause Type: {clause_type}\n")
+    print(f'\nOriginal: "{test_clause}"')
+    print(f"Type: {test_type}\n")
 
+    # retrieve
     print("Retrieving similar clauses...")
-    similar = retrieve_similar_clauses(test_clause, top_k=5)
-    print(f"Found {len(similar)} similar clauses:\n")
+    similar = get_similar_clauses(test_clause, k=5)
     for i, s in enumerate(similar, 1):
         print(f"  {i}. [{', '.join(s['label'])}] {s['clause'][:100]}...")
 
-    print("\nRewriting clause with LLM...")
-    rewritten = rewrite_clause(test_clause, clause_type, similar)
-    print(f"\nRewritten Clause:\n\"{rewritten}\"")
+    # rewrite
+    print("\nRewriting...")
+    rewritten = rewrite_clause(test_clause, test_type, similar)
+    print(f'\nRewritten: "{rewritten}"')
+
+    # explain
+    print("\nExplaining changes...")
+    explanation = explain_changes(test_clause, rewritten, test_type)
+    print(f"\n{explanation}")
