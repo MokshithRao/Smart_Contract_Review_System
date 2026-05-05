@@ -2,6 +2,15 @@ pandas==2.2.3
 numpy==2.4.3
 streamlit==1.37.0
 jupyter==1.1.1
+requests
+fastapi
+uvicorn
+python-multipart
+python-docx
+pdfplumber
+python-dotenv
+huggingface-hub
+faiss-cpu
 torch
 transformers
 peft

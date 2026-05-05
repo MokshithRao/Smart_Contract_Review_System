@@ -14,13 +14,26 @@ load_dotenv()
 # paths
 ROOT = Path(__file__).resolve().parent.parent
 INDEX_PATH = ROOT / "rag" / "faiss_index.index"
-META_PATH  = ROOT / "rag" / "clauses_metadata.json"
+META_PATH = ROOT / "rag" / "clauses_metadata.json"
 
-# load faiss index + metadata
-print("Loading FAISS index and metadata...")
-faiss_index = faiss.read_index(str(INDEX_PATH))
-with open(META_PATH, "r", encoding="utf-8") as f:
-    clause_metadata = json.load(f)
+faiss_index = None
+clause_metadata = []
+
+if INDEX_PATH.exists() and META_PATH.exists():
+    try:
+        print("Loading FAISS index and metadata...")
+        faiss_index = faiss.read_index(str(INDEX_PATH))
+        with open(META_PATH, "r", encoding="utf-8") as f:
+            clause_metadata = json.load(f)
+    except Exception as error:
+        print(f"Failed to load RAG index or metadata: {error}")
+else:
+    missing = []
+    if not INDEX_PATH.exists():
+        missing.append(str(INDEX_PATH))
+    if not META_PATH.exists():
+        missing.append(str(META_PATH))
+    print(f"RAG resources not available: {', '.join(missing)}")
 
 # embedding model (same one used during indexing)
 print("Loading embedding model...")
@@ -33,6 +46,9 @@ MODEL_NAME = "meta-llama/Meta-Llama-3-8B-Instruct"
 
 def get_similar_clauses(clause_text, k=5):
     """Find k most similar clauses from the FAISS index"""
+    if faiss_index is None or not clause_metadata:
+        return []
+
     vec = embedder.encode([clause_text])
     vec = np.array(vec).astype("float32")
 

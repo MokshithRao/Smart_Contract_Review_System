@@ -129,6 +129,7 @@ ONE_SIDED_HIGH_RISK_PATTERNS = {
 	"absolute discretion": 2,
 	"without notice": 2,
 	"immediate termination": 2,
+	"terminate for convenience": 2,
 	"unilateral": 2,
 	"shall remain with company": 2,
 	"company is not liable": 2,
@@ -383,6 +384,7 @@ def filter_important_clauses(clauses: List[Dict[str, Any]]) -> List[Dict[str, An
 				"risk_score": _RISK_SCORE[risk_level],
 				"confidence": confidence,
 				"reason": risk_meta["reason"],
+				"top_k": clause.get("top_k", []),
 			}
 		)
 
@@ -432,6 +434,7 @@ def filter_one_sided_high_risk_clauses(
 				"bias_score": int(bias_meta["bias_score"]),
 				"one_sided": True,
 				"reason": reason,
+				"top_k": clause.get("top_k", []),
 			}
 		)
 

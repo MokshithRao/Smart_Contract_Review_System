@@ -288,7 +288,7 @@ def is_valid_clause(text: str) -> bool:
 		return False
 
 	words = cleaned.split()
-	if len(words) <= 10:
+	if len(words) < 5:
 		return False
 	if len(words) > 120:
 		return False

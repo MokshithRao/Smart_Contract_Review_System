@@ -5,11 +5,15 @@ import os
 import tempfile
 from typing import Any, Dict
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+
+load_dotenv()
 
 from src.api.ui.fastapi_ui import get_root_ui_response
 from src.extraction.Text_extractor import extract_text
-from src.main_pipeline import process_contract
+from src.main_pipeline import build_rag_review, classify_contract
+from src.risk_filter import filter_important_clauses
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -84,8 +88,28 @@ async def analyze_contract(
                 detail="No text could be extracted from the uploaded document or entered text.",
             )
 
-        results = process_contract(text_to_analyze)
-        return {"clauses": results}
+        all_clauses = classify_contract(text_to_analyze)
+        clauses = filter_important_clauses(all_clauses)[:20]
+
+        rag_review = []
+        rag_status = "skipped"
+        if os.getenv("HF_API_TOKEN"):
+            try:
+                rag_review = build_rag_review(text_to_analyze)
+                rag_status = "completed"
+            except Exception as error:
+                logger.warning("RAG review unavailable for this request: %s", error)
+                rag_status = "failed"
+        else:
+            logger.info("Skipping RAG review - HF_API_TOKEN not set")
+            rag_status = "missing_api_token"
+
+        return {
+            "clauses": clauses,
+            "all_clauses": all_clauses,
+            "rag_review": rag_review,
+            "rag_status": rag_status,
+        }
 
     except HTTPException:
         raise
