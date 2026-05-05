@@ -2,98 +2,103 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
-import json
 import logging
 from typing import Any, Dict, List
 
-from inference.clause_classifier import predict_batch, split_into_clauses
-from risk_filter import filter_important_clauses, filter_one_sided_high_risk_clauses
-
+from src.inference.clause_classifier import predict_batch, split_into_clauses
+from src.risk_filter import filter_important_clauses, filter_one_sided_high_risk_clauses
 
 logger = logging.getLogger(__name__)
 
 
-def group_by_label(clauses: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
-	"""Group important clauses by predicted label for UI display."""
+def _load_rag_helpers():
+	"""Lazy import RAG helpers to avoid expensive startup overhead."""
+	from rag.rewrite import explain_changes, get_similar_clauses, rewrite_clause
 
-	grouped: defaultdict[str, List[Dict[str, Any]]] = defaultdict(list)
-	for clause in clauses:
-		label = str(clause.get("label", "unknown") or "unknown")
-		grouped[label].append(clause)
-	return dict(grouped)
+	return get_similar_clauses, rewrite_clause, explain_changes
 
 
-def keep_top_k_per_label(grouped: Dict[str, List[Dict[str, Any]]], k: int = 2) -> Dict[str, List[Dict[str, Any]]]:
-	"""Keep only the top-k clauses per label by confidence."""
-
-	final: Dict[str, List[Dict[str, Any]]] = {}
-	for label, items in grouped.items():
-		sorted_items = sorted(items, key=lambda item: item.get("confidence", 0.0), reverse=True)
-		final[label] = sorted_items[:k]
-	return final
-
-
-def process_contract(text: str) -> Dict[str, List[Dict[str, Any]]]:
-	"""Run the full contract analysis pipeline and return important clauses.
-
-	Steps:
-	1) Split contract text into clauses.
-	2) Merge short fragments into nearby clauses.
-	2) Classify all clauses using batch inference.
-	3) Filter to high/medium risk clauses.
-	4) Group by label for UI consumption.
-	"""
+def classify_contract(text: str) -> List[Dict[str, Any]]:
+	"""Split raw contract text into clauses and classify each one."""
 
 	if not text or not text.strip():
 		logger.warning("Received empty contract text. Returning empty result.")
-		return {}
+		return []
 
 	clauses = split_into_clauses(text)
 	if not clauses:
 		logger.warning("No clauses were produced from input text. Returning empty result.")
-		return {}
+		return []
 
-	logger.info("Processing contract with %d clause(s).", len(clauses))
-	predictions = predict_batch(clauses)
+	logger.info("Classifying contract with %d clause(s).", len(clauses))
+	return predict_batch(clauses)
+
+
+def process_contract(text: str) -> List[Dict[str, Any]]:
+	"""Return important high/medium risk clauses from classified contract text."""
+
+	predictions = classify_contract(text)
 	if not predictions:
-		logger.warning("Classifier returned no predictions. Returning empty result.")
-		return {}
+		return []
 
 	important_clauses = filter_important_clauses(predictions)[:20]
-	grouped_clauses = keep_top_k_per_label(group_by_label(important_clauses), k=2)
-	logger.info("Pipeline identified %d important clause(s).", sum(len(items) for items in grouped_clauses.values()))
-	return grouped_clauses
+	logger.info("Pipeline identified %d important clause(s).", len(important_clauses))
+	return important_clauses
 
 
-def process_contract_one_sided_high_risk(text: str, max_items: int = 20) -> List[Dict[str, Any]]:
-	"""Return only one-sided HIGH-risk clauses for RAG rewriting.
+def build_rag_review(text: str, max_items: int = 3) -> List[Dict[str, Any]]:
+	"""Produce RAG-based rewrites for top one-sided high-risk clauses."""
 
-	Steps:
-	1) Split contract text into clause candidates.
-	2) Classify each clause with the fine-tuned model.
-	3) Keep only one-sided HIGH-risk clauses.
-	4) Return top items ranked by bias/confidence.
-	"""
-
-	if not text or not text.strip():
-		logger.warning("Received empty contract text. Returning empty result.")
-		return []
-
-	clauses = split_into_clauses(text)
-	if not clauses:
-		logger.warning("No clauses were produced from input text. Returning empty result.")
-		return []
-
-	logger.info("Running one-sided high-risk pipeline for %d clause(s).", len(clauses))
-	predictions = predict_batch(clauses)
+	predictions = classify_contract(text)
 	if not predictions:
-		logger.warning("Classifier returned no predictions. Returning empty result.")
 		return []
 
 	risky_clauses = filter_one_sided_high_risk_clauses(predictions)[:max_items]
-	logger.info("Pipeline identified %d one-sided high-risk clause(s).", len(risky_clauses))
-	return risky_clauses
+	if not risky_clauses:
+		logger.info("No one-sided high-risk clauses found for RAG review; falling back to top important clauses.")
+		risky_clauses = filter_important_clauses(predictions)[:max_items]
+		if not risky_clauses:
+			logger.info("No important clauses available for fallback RAG review.")
+			return []
+
+	try:
+		get_similar_clauses, rewrite_clause, explain_changes = _load_rag_helpers()
+	except Exception as error:
+		logger.warning("RAG helpers unavailable: %s", error)
+		return []
+
+	reviews: List[Dict[str, Any]] = []
+	for clause in risky_clauses:
+		original = clause.get("text", "")
+		clause_type = clause.get("label", "unknown")
+
+		rewrite = ""
+		explanation = ""
+		similar_clauses = []
+
+		try:
+			similar_clauses = get_similar_clauses(original, k=5)
+			rewrite = rewrite_clause(original, clause_type, similar_clauses)
+			explanation = explain_changes(original, rewrite, clause_type)
+		except Exception as error:
+			logger.warning("RAG review failed for clause: %s", error)
+			explanation = "RAG review could not be completed for this clause."
+
+		reviews.append(
+			{
+				"original": original,
+				"label": clause_type,
+				"confidence": clause.get("confidence", 0.0),
+				"risk": clause.get("risk", "HIGH"),
+				"top_k": clause.get("top_k", []),
+				"similar_clauses": similar_clauses,
+				"rewrite": rewrite,
+				"explanation": explanation,
+			}
+		)
+
+	logger.info("Built %d RAG review(s).", len(reviews))
+	return reviews
 
 
 if __name__ == "__main__":
@@ -106,10 +111,14 @@ if __name__ == "__main__":
 		"The customer has audit rights on reasonable notice."
 	)
 
-	results = process_contract(sample_contract_text)
-	print("Important Clauses:")
-	print(json.dumps(results, indent=2))
+	all_predictions = classify_contract(sample_contract_text)
+	print("All Clause Predictions:")
+	print(any(all_predictions) and len(all_predictions))
 
-	one_sided_results = process_contract_one_sided_high_risk(sample_contract_text)
-	print("\nOne-Sided High-Risk Clauses:")
-	print(json.dumps(one_sided_results, indent=2))
+	important = process_contract(sample_contract_text)
+	print("\nImportant Clauses:")
+	print(important)
+
+	rage_reviews = build_rag_review(sample_contract_text)
+	print("\nRAG Review Output:")
+	print(rage_reviews)

@@ -49,19 +49,44 @@ def render_streamlit_ui(api_url: str = "http://localhost:8000/analyze") -> None:
                         result = response.json()
                         st.success("Analysis complete.")
                         clauses = result.get("clauses") or []
+                        rag_review = result.get("rag_review") or []
+
                         if clauses:
+                            st.subheader("Important Clauses and Risk Signals")
                             for index, clause in enumerate(clauses, start=1):
                                 st.markdown(f"### {index}. {clause.get('label', 'Unknown clause')}")
                                 st.write(f"**Confidence:** {clause.get('confidence', 0.0):.2f}")
+                                if clause.get('risk'):
+                                    st.write(f"**Risk:** {clause.get('risk')}")
+                                if clause.get('reason'):
+                                    st.write(f"**Risk detail:** {clause.get('reason')}")
                                 st.write(clause.get('text', 'No text extracted.'))
                                 top_k = clause.get("top_k")
                                 if top_k:
-                                    with st.expander("Top predictions"):
+                                    with st.expander("Top clause predictions"):
                                         for prediction in top_k:
                                             st.write(f"- {prediction.get('label')} ({prediction.get('score', 0.0):.2f})")
                                 st.write("---")
                         else:
-                            st.info("No clauses were identified in the uploaded document.")
+                            st.info("No important clauses were identified in the uploaded document.")
+
+                        if rag_review:
+                            st.subheader("RAG Review Suggestions")
+                            for index, item in enumerate(rag_review, start=1):
+                                with st.expander(f"Clause {index}: {item.get('label', 'Unknown')} - rewrite suggestion"):
+                                    st.markdown(f"**Original clause:**")
+                                    st.write(item.get('original', ''))
+                                    st.markdown(f"**Suggested rewrite:**")
+                                    st.code(item.get('rewrite', 'No rewrite available'))
+                                    st.markdown(f"**Explanation:**")
+                                    st.write(item.get('explanation', ''))
+                                    similar_clauses = item.get('similar_clauses') or []
+                                    if similar_clauses:
+                                        st.markdown("**Reference clauses:**")
+                                        for clause_example in similar_clauses:
+                                            st.write(f"- {clause_example.get('clause', '')} ({clause_example.get('label', '')})")
+                        else:
+                            st.info("No RAG suggestions were generated for this contract.")
                     else:
                         st.error(f"Analysis failed: {response.text}")
                 except requests.exceptions.RequestException as e:
