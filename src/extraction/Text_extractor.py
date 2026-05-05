@@ -3,7 +3,6 @@ import pdfplumber
 from docx import Document
 
 
-
 def extract_text(file_path):
 
     text = ""
@@ -51,16 +50,7 @@ def extract_text(file_path):
     return text
 
 
-
-
-
-
-
 if __name__ == "__main__":
-
     file_path = "Anil.pdf"
-
     result = extract_text(file_path)
-
     print(result)
-
