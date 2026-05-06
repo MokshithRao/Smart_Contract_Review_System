@@ -6,7 +6,7 @@ import logging
 from typing import Any, Dict, List
 
 from src.inference.clause_classifier import predict_batch, split_into_clauses
-from src.risk_filter import filter_important_clauses, filter_one_sided_high_risk_clauses
+from src.risk_filter import filter_important_clauses
 
 logger = logging.getLogger(__name__)
 
@@ -46,20 +46,11 @@ def process_contract(text: str) -> List[Dict[str, Any]]:
 	return important_clauses
 
 
-def build_rag_review(text: str, max_items: int = 3) -> List[Dict[str, Any]]:
-	"""Produce RAG-based rewrites for top one-sided high-risk clauses."""
+def build_rag_review(predictions: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+	"""Produce RAG-based rewrites for all provided clauses."""
 
-	predictions = classify_contract(text)
 	if not predictions:
 		return []
-
-	risky_clauses = filter_one_sided_high_risk_clauses(predictions)[:max_items]
-	if not risky_clauses:
-		logger.info("No one-sided high-risk clauses found for RAG review; falling back to top important clauses.")
-		risky_clauses = filter_important_clauses(predictions)[:max_items]
-		if not risky_clauses:
-			logger.info("No important clauses available for fallback RAG review.")
-			return []
 
 	try:
 		get_similar_clauses, rewrite_clause, explain_changes = _load_rag_helpers()
@@ -68,7 +59,7 @@ def build_rag_review(text: str, max_items: int = 3) -> List[Dict[str, Any]]:
 		return []
 
 	reviews: List[Dict[str, Any]] = []
-	for clause in risky_clauses:
+	for clause in predictions:
 		original = clause.get("text", "")
 		clause_type = clause.get("label", "unknown")
 
@@ -119,6 +110,6 @@ if __name__ == "__main__":
 	print("\nImportant Clauses:")
 	print(important)
 
-	rage_reviews = build_rag_review(sample_contract_text)
+	rage_reviews = build_rag_review(important)
 	print("\nRAG Review Output:")
 	print(rage_reviews)
