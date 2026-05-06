@@ -95,7 +95,7 @@ async def analyze_contract(
         rag_status = "skipped"
         if os.getenv("HF_API_TOKEN"):
             try:
-                rag_review = build_rag_review(text_to_analyze)
+                rag_review = build_rag_review(clauses)
                 rag_status = "completed"
             except Exception as error:
                 logger.warning("RAG review unavailable for this request: %s", error)

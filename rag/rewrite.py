@@ -96,11 +96,13 @@ Similar clauses from standard legal contracts (use as reference for fair languag
 {examples}
 
 Instructions:
-1. Rewrite the clause to be fair to both parties (mutual obligations where possible)
-2. Use clear, plain language that non-lawyers can understand
-3. Keep the legal intent intact
-4. Use the similar clauses above as examples of balanced language
-5. Return ONLY the rewritten clause text, nothing else
+1. Rewrite the clause to be fair, but prefer "clarification" over "replacement". Keep modifications minimal.
+2. CRITICAL: Do not change any commercial numbers, dates, or financial terms.
+3. CRITICAL: Do not introduce joint ownership unless explicitly requested in the original text.
+4. Preserve the original business intent and commercial purpose.
+5. Use clear, plain language that non-lawyers can understand.
+6. Use the similar clauses above as examples of balanced language.
+7. Return ONLY the rewritten clause text, nothing else.
 
 Rewritten Clause:"""
 

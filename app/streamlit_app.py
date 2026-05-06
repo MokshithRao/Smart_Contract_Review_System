@@ -67,27 +67,27 @@ def render_streamlit_app(api_url: str = "http://127.0.0.1:8000/analyze") -> None
                                     with st.expander("Top clause predictions"):
                                         for prediction in top_k:
                                             st.write(f"- {prediction.get('label')} ({prediction.get('score', 0.0):.2f})")
+                                
+                                if rag_review and len(rag_review) >= index:
+                                    item = rag_review[index - 1]
+                                    if item.get('rewrite'):
+                                        with st.expander("RAG Review Suggestion - Rewrite"):
+                                            st.markdown("**Suggested rewrite:**")
+                                            st.code(item.get('rewrite', 'No rewrite available'))
+                                            st.markdown("**Explanation:**")
+                                            st.write(item.get('explanation', ''))
+                                            similar_clauses = item.get('similar_clauses') or []
+                                            if similar_clauses:
+                                                st.markdown("**Reference clauses:**")
+                                                for clause_example in similar_clauses:
+                                                    st.write(f"- {clause_example.get('clause', '')} ({clause_example.get('label', '')})")
+
                                 st.write("---")
                         else:
                             st.info("No important clauses were identified in the uploaded document.")
 
                         rag_status = result.get("rag_status")
-                        if rag_review:
-                            st.subheader("RAG Review Suggestions")
-                            for index, item in enumerate(rag_review, start=1):
-                                with st.expander(f"Clause {index}: {item.get('label', 'Unknown')} - rewrite suggestion"):
-                                    st.markdown("**Original clause:**")
-                                    st.write(item.get('original', ''))
-                                    st.markdown("**Suggested rewrite:**")
-                                    st.code(item.get('rewrite', 'No rewrite available'))
-                                    st.markdown("**Explanation:**")
-                                    st.write(item.get('explanation', ''))
-                                    similar_clauses = item.get('similar_clauses') or []
-                                    if similar_clauses:
-                                        st.markdown("**Reference clauses:**")
-                                        for clause_example in similar_clauses:
-                                            st.write(f"- {clause_example.get('clause', '')} ({clause_example.get('label', '')})")
-                        else:
+                        if not rag_review:
                             if rag_status == "missing_api_token":
                                 st.info("No RAG suggestions were generated because HF_API_TOKEN is not set. Please add your token to .env or environment variables.")
                             elif rag_status == "failed":
