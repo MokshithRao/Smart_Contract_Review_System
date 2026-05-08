@@ -80,31 +80,81 @@ def rewrite_clause(original, clause_type, similar_clauses):
     """Rewrite a contract clause using RAG context from similar clauses"""
 
     # format the similar clauses as numbered examples
-    examples = ""
+    retrieved_clauses = ""
     for i, sc in enumerate(similar_clauses, 1):
         labels = ", ".join(sc["label"])
-        examples += f'\n{i}. "{sc["clause"]}"\n   (Label: {labels})\n'
+        retrieved_clauses += f'\n{i}. "{sc["clause"]}"\n   (Label: {labels})\n'
 
-    prompt = f"""You are a legal contract expert. Rewrite the following contract clause to make it fairer, clearer, and more balanced for both parties.
+    prompt = f"""You are a legal contract clause rewriting assistant.
+
+Your task is to rewrite the given contract clause to make it:
+
+* more balanced
+* less one-sided
+* clearer
+* easier to understand
+
+IMPORTANT RULES:
+You must preserve the original legal and commercial meaning as much as possible.
+
+STRICT CONSTRAINTS:
+
+* Do NOT change ownership structures.
+* Do NOT change payment amounts, percentages, fees, or financial allocations.
+* Do NOT introduce new legal obligations unless absolutely necessary.
+* Do NOT introduce new parties, rights, liabilities, or remedies.
+* Do NOT add entirely new clauses or concepts.
+* Do NOT significantly increase the length of the clause.
+* Do NOT convert exclusive ownership into joint ownership.
+* Do NOT add large sections of explanatory language.
+* Do NOT introduce unrelated protections.
+* Do NOT change the core business intent.
+* Prefer minimal edits over full rewrites.
+
+ALLOWED IMPROVEMENTS:
+
+* Add reasonable notice periods.
+* Replace unilateral language with mutual language where appropriate.
+* Replace harsh wording with balanced wording.
+* Clarify ambiguous phrasing.
+* Improve readability and sentence structure.
+* Add simple fairness protections only if directly related to the original clause.
+
+GOOD EXAMPLES:
+
+* Change "the company may terminate at any time without notice"
+  to
+  "either party may terminate with reasonable written notice"
+
+* Change "without prior written consent of the company"
+  to
+  "without prior written consent of the other party"
+
+BAD EXAMPLES:
+
+* Adding entirely new obligations
+* Adding dispute resolution sections
+* Adding insurance requirements
+* Converting exclusive ownership into joint ownership
+* Adding long multi-paragraph legal terms
+* Expanding a one-line clause into a full-page clause
+
+OUTPUT REQUIREMENTS:
+
+* Return ONLY the rewritten clause.
+* Do NOT explain the changes.
+* Keep the rewritten clause concise.
+* Keep sentence count close to the original.
+* Preserve the original structure whenever possible.
 
 Original Clause:
-"{original}"
+{original}
 
-Clause Type: {clause_type}
+Similar Reference Clauses:
+{retrieved_clauses}
 
-Similar clauses from standard legal contracts (use as reference for fair language):
-{examples}
-
-Instructions:
-1. Rewrite the clause to be fair, but prefer "clarification" over "replacement". Keep modifications minimal.
-2. CRITICAL: Do not change any commercial numbers, dates, or financial terms.
-3. CRITICAL: Do not introduce joint ownership unless explicitly requested in the original text.
-4. Preserve the original business intent and commercial purpose.
-5. Use clear, plain language that non-lawyers can understand.
-6. Use the similar clauses above as examples of balanced language.
-7. Return ONLY the rewritten clause text, nothing else.
-
-Rewritten Clause:"""
+Rewritten Clause:
+"""
 
     try:
         return call_llm(prompt)
