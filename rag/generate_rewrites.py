@@ -3,7 +3,12 @@ os.environ["USE_TF"] = "0"
 
 import json
 import time
+import sys
 from pathlib import Path
+
+# Add the project root to sys.path to resolve the 'rag' module import
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 from rag.rewrite import get_similar_clauses, rewrite_clause, explain_changes
 
 OUTPUT = Path(__file__).resolve().parent.parent / "evaluation" / "rewrites_for_review.json"

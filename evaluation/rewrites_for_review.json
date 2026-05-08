@@ -1,382 +1,262 @@
 [
-  {
-    "id": 1,
-    "clause_type": "termination for convenience",
-    "original": "The company may terminate this agreement at any time without notice.",
-    "rewritten": "\"The parties may terminate this agreement at any time upon at least 30 days' prior written notice to the other party, unless otherwise mutually agreed. Upon termination, each party shall return all confidential information and cease performance of their obligations under this agreement, except as otherwise provided in this agreement.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n* The original clause only mentions the company's right to terminate, while the rewritten clause includes both parties (\"The parties may terminate this agreement\"). \nThis change makes the clause more mutual and fair, as it includes both parties' termination rights.\n\n* The original clause allows for termination \"at any time without notice\", while the rewritten clause requires at least 30 days' prior written notice. \nThis change adds a protection for the other party, allowing them time to adjust to the termination.\n\n* The original clause does not specify what happens upon termination, while the rewritten clause requires each party to return confidential information and cease performance of their obligations. \nThis change provides clarity on the obligations of each party upon termination.\n\n* The rewritten clause adds an exception for mutual agreements, allowing the parties to alter the termination terms if they agree to do so.\nThis change makes the clause more flexible and allows for customizations to suit the parties' needs.\n\n* The rewritten clause adds an exception for obligations \"otherwise provided in this agreement\", which implies that certain obligations may continue even after termination.\nThis change adds clarity on the scope of obligations that continue after termination.\n\nOverall, the rewritten clause is more comprehensive and provides clarity on the termination process, notice periods, and post-termination obligations. The changes make the clause more mutual, fair, and protective of both parties' interests.",
-    "similar_clauses_used": [
-      "The Employer may terminate this Agreement and the Employee’s employment hereunder without Cause at any time, with or without notice, for any reason or",
-      "This Agreement may be terminated by either party for any or no reason immediately upon written or e-mail notice without further obligation or liabilit",
-      "(a) This Agreement may be terminated at any time by the mutual written consent of Service Provider and the Company.",
-      "This Agreement may be terminated by the Company on Thirty (30) days written notice to the Advisor at any time without prejudice to any other rights or",
-      "This Agreement may be terminated at any time prior to the Closing by the mutual written consent of the Parties."
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
+    {
+        "id": 1,
+        "clause_type": "termination for convenience",
+        "original": "The company may terminate this agreement at any time without notice.",
+        "rewritten": "Either party may terminate this agreement with reasonable written notice to the other party.",
+        "explanation": "• **Change from \"The company\" to \"Either party\"**: \nThis change makes the clause fairer by removing a one-sided term where only the company had the power to terminate the agreement. Now, either party has the same ability to terminate.\n\n• **Addition of \"with reasonable written notice\"**: \nThis change adds a necessary protection to prevent sudden termination without giving the other party a chance to prepare. The term \"reasonable written notice\" ensures that termination is not arbitrary.\n\n• **Original clause allowed for termination \"without notice\"**: \nThis change corrects a one-sided term where the company could terminate without any notice at all. The addition of a notice period makes the clause more balanced and allows the other party to prepare.\n\n• **Original clause allowed for termination \"at any time\"**: \nThis change removes an overly broad term that could be interpreted to allow termination on a whim. The addition of the term \"with reasonable written notice\" ensures that termination is not arbitrary and gives the other party some planning time.\n\nOverall, these changes make the clause fairer by adding mutual termination rights, defining what constitutes reasonable notice, and preventing sudden termination without notice.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 3,
+            "fairness": 3,
+            "clarity": null
+        }
+    },
+    {
+        "id": 2,
+        "clause_type": "non-compete",
+        "original": "The employee shall not work for any competing business for a period of 5 years after termination.",
+        "rewritten": "The employee shall not work for any competing business for a period of 5 years after the termination of their employment with the company. \n\n(Note: The rewritten clause preserves the original 5-year non-compete period and maintains the exclusive nature of the restriction, while making the language slightly more balanced and easier to understand.)",
+        "explanation": "Here are the changes between the original and rewritten clauses:\n\n* The rewritten clause adds the phrase \"with the company\" after \"termination of their employment.\" \n    - This makes the language clearer and easier to understand by specifying that the 5-year non-compete period starts after the employee's employment with the company ends, rather than just after termination in general.\n    - No one-sided terms were made mutual, and no missing protections were added.\n\n* The rewritten clause does not introduce any new terms or protections that would affect the balance between the employee and the company.\n    - This change maintains the exclusive nature of the restriction, where the employee is still restricted from working for competing businesses, but the employee's rights are not significantly impacted.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 4,
+            "fairness": 3,
+            "clarity": null
+        }
+    },
+    {
+        "id": 3,
+        "clause_type": "cap on liability",
+        "original": "The company's total liability shall not exceed the fees paid in the last month.",
+        "rewritten": "The company's total liability for the services rendered shall not exceed the amount of fees actually paid by the customer in the preceding month.",
+        "explanation": "Here are the changes between the original and rewritten clauses:\n\n• **Changed \"last month\" to \"preceding month\"**: This change clarifies the time frame for calculating liability. The term \"preceding month\" is more precise and leaves less room for interpretation.\n\n• Added \"for the services rendered\": This change makes it clear that the liability limit applies only to the services provided, which is a more reasonable and specific scope.\n\n• Changed \"fees paid\" to \"amount of fees actually paid by the customer\": This change clarifies that the liability limit is based on the actual payments made by the customer, not just the amount invoiced. This is a more realistic and fair approach, as it takes into account any payment disputes or delays.\n\n• **Mutual protection**: By specifying \"actually paid by the customer,\" both parties are protected from disputes over payment amounts.\n\n• **No missing protections added**: The rewritten clause does not introduce any new notice periods or other protections that would be beneficial for the customer.\n\nOverall, the rewritten clause is more specific, precise, and fair than the original clause. It provides mutual protection and clarifies the scope of liability, making it a more reasonable and enforceable provision.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 4,
+            "fairness": 3,
+            "clarity": null
+        }
+    },
+    {
+        "id": 4,
+        "clause_type": "governing law",
+        "original": "This agreement shall be governed exclusively by the laws of the State of Delaware, and any disputes must be resolved in Delaware courts only.",
+        "rewritten": "This agreement shall be governed by and construed in accordance with the laws of the State of Delaware, and any disputes arising out of or related to this agreement shall be resolved by arbitration in Delaware, in accordance with the rules of the Delaware Court of Chancery.\n\n(Note: While this clause includes a slight change to introduce a form of dispute resolution mechanism in accordance with Delaware law, it's preserved in such a manner that it: does not significantly alter the original intent; does not introduce new obligations; and does not change the original ownership or payment structures.)",
+        "explanation": "Here are the changes made to the clause:\n\n* The word \"exclusively\" was removed from the governing law phrase.\n  - This makes the clause more flexible, allowing the parties to potentially consider other jurisdictions for specific issues, rather than being tied exclusively to Delaware law.\n\n* The phrase \"and any disputes must be resolved in Delaware courts only\" was replaced with \"and any disputes arising out of or related to this agreement shall be resolved by arbitration in Delaware, in accordance with the rules of the Delaware Court of Chancery.\"\n  - This change clarifies the dispute resolution mechanism, specifying that disputes will be resolved through arbitration in Delaware, rather than through traditional litigation. This can be seen as a more efficient and less costly method of dispute resolution.\n\n* The addition of \"arising out of or related to this agreement\" provides a clearer scope for the dispute resolution process.\n  - This change makes the clause fairer by providing a more defined scope for the dispute resolution mechanism, ensuring that both parties understand what issues will be subject to arbitration.\n\n* The mention of \"the rules of the Delaware Court of Chancery\" adds a layer of specificity and clarity to the dispute resolution process.\n  - This change makes the clause clearer by specifying the governing rules for the arbitration process, reducing potential confusion or ambiguity.\n\nNo one-sided terms were made mutual, and no new protections or obligations were introduced. However, the rewritten clause does introduce a more formal and efficient dispute resolution mechanism, which may be beneficial for both parties.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 3,
+            "fairness": 2,
+            "clarity": null
+        }
+    },
+    {
+        "id": 5,
+        "clause_type": "license grant",
+        "original": "The licensee is granted a non-exclusive, non-transferable license to use the software.",
+        "rewritten": "The licensee is granted a non-exclusive, non-transferable license to use the software, subject to the terms of this agreement.",
+        "explanation": "Here's the comparison of the two clauses with the changes listed as bullet points:\n\n• **Added phrase \"subject to the terms of this agreement\"**\nThis change clarifies that the license is subject to the broader agreement, not just the specific clause. This makes it clear that the licensee is expected to read and comply with all the terms of the agreement, not just this one clause.\n \n• **Removed phrase \"The licensee is granted\"**\nThis change is minor and makes the clause more concise. However, it doesn't affect the meaning of the clause.\n\n• **No change in license scope (non-exclusive, non-transferable)**\nThe scope of the license remains the same. This is a neutral change.\n\n• **No missing protections added**\nThis change doesn't add any new protections or notice periods. The original clause is relatively clear, so no additional protections are needed.\n\n• **No one-sided terms made mutual**\nThe original clause and the rewritten clause have similar language. The licensee's obligations are still one-sided, with no reciprocal obligations on the licensor's part. The rewritten clause doesn't address any potential one-sided terms.\n\nOverall, the rewritten clause is slightly clearer, but the changes are minor.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 5,
+            "fairness": 2,
+            "clarity": null
+        }
+    },
+    {
+        "id": 6,
+        "clause_type": "no-solicit of customers",
+        "original": "The employee shall not solicit any customers of the company for a period of 3 years after leaving.",
+        "rewritten": "The employee shall not solicit any customers of the company for a period of 3 years after termination of employment.\n\nOriginal Structure and Meaning Preserved.\n\nAlternatively:\n\nFor a period of 3 years after the employee's termination, the employee shall not solicit or attempt to solicit any customers of the company for the benefit of any other person or business.",
+        "explanation": "Here are the changes between the original and rewritten clause:\n\n* **Change 1: Added \"termination of employment\"**\nThis change clarifies the timing of the non-solicit period. Instead of \"after leaving,\" which could be interpreted as leaving the company voluntarily, \"termination of employment\" specifically refers to the end of the employment contract, regardless of the circumstances.\n* **Change 2: Added \"For a period of 3 years after the employee's termination\"**\nThis change makes the duration of the non-solicit period more explicit. It also uses the phrase \"after the employee's termination,\" which is more concise and clearer than the original phrase.\n* **Change 3: Added \"attempt to solicit\"**\nThis change makes the clause more comprehensive by including not only soliciting but also attempting to solicit customers. This is a fairer term as it prevents employees from making indirect attempts to poach customers.\n* **Change 4: Added \"for the benefit of any other person or business\"**\nThis change ensures that the non-solicit clause applies not only to the employee's direct actions but also to any actions taken on behalf of another party. This is a fairer term as it prevents employees from using their connections to indirectly solicit customers for a competitor or other business.\n* **Change 5: Made the clause more mutual**\nThe rewritten clause does not change the scope of the non-solicit period or the prohibited actions, but it does make the clause more comprehensive and clear. This is a fairer term as it provides more clarity and protection for both the company and the employee.\n\nNo additional protections, like notice periods, were added to the rewritten clause.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 3,
+            "fairness": 3,
+            "clarity": null
+        }
+    },
+    {
+        "id": 7,
+        "clause_type": "audit rights",
+        "original": "The company shall have the right to audit the contractor's records at any time without prior notice.",
+        "rewritten": "Either party may request to audit the contractor's records upon reasonable written notice to the other party.",
+        "explanation": "Here are the changes made to the original clause:\n\n• **From \"at any time\" to \"upon reasonable written notice\"**: This change makes the clause more balanced and reasonable. The original clause allowed the company to audit at any time without notice, which could have been intrusive. The rewritten clause requires written notice, giving the contractor a chance to prepare and respond.\n\n• **From \"the company\" to \"either party\"**: This change makes the clause mutual, as both parties now have the right to audit the contractor's records. This change balances the power and gives the contractor equal rights.\n\n• **Addition of \"reasonable\"**: This change adds a level of specificity and fairness to the clause. It implies that the notice period should be reasonable and not excessive, giving the contractor sufficient time to respond.\n\n• **Addition of \"in writing\"**: This change clarifies that notice should be in writing, which provides a clear record of the request and helps prevent disputes.\n\nThe rewritten clause is fairer and clearer because it:\n\n* Adds a notice period, giving the contractor time to respond\n* Makes the clause mutual, giving both parties equal rights\n* Provides clear language and specificity\n* Balances the power between the parties\n\nOverall, the rewritten clause is more balanced and reasonable, and it provides clear language and protections for both parties.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 3,
+            "fairness": 4,
+            "clarity": null
+        }
+    },
+    {
+        "id": 8,
+        "clause_type": "renewal term",
+        "original": "This agreement shall automatically renew for successive one-year terms unless the company provides notice of termination.",
+        "rewritten": "Either party may terminate this agreement with reasonable written notice prior to the commencement of any successive one-year term.",
+        "explanation": "Here are the changes between the original and rewritten clauses:\n\n• The original clause specified that the company must provide notice of termination, while the rewritten clause allows either party to terminate with notice.\n  **Why it makes the clause fairer:** This change makes the clause more mutual by giving the customer or other party the right to terminate, not just the company. It's no longer a one-sided term.\n  **Missing protection added:** The rewritten clause now includes the customer's notice period, which was missing in the original clause.\n\n• The original clause specified that the agreement would automatically renew, while the rewritten clause requires notice before the commencement of any term.\n  **Why it makes the clause clearer:** This change clarifies the renewal process by requiring notice before each term, rather than automatically renewing. It also gives both parties more control over the renewal process.\n\n• The original clause implied a \"no-action\" approach (i.e., the agreement would renew unless the company acts to terminate), while the rewritten clause requires action (i.e., the parties must give notice to terminate).\n  **Why it makes the clause clearer:** This change makes it clear that both parties must take action to renew or terminate the agreement, rather than relying on a \"no-action\" approach.\n\n• The original clause did not specify the reasonableness of the notice period, while the rewritten clause requires \"reasonable written notice.\"\n  **Why it makes the clause clearer:** This change adds a condition that the notice period must be reasonable, which helps prevent disputes over the length or timeliness of notice.\n\n• The original clause did not specify the timing of the notice period, while the rewritten clause requires notice \"prior to the commencement of any successive one-year term.\"\n  **Why it makes the clause clearer:** This change specifies the timing of the notice period, which helps clarify when notice must be given to terminate the agreement.\n\nOverall, the rewritten clause is more mutual and clearer than the original clause, as it requires notice from both parties before each term and specifies the reasonableness of the notice period.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 2,
+            "fairness": 5,
+            "clarity": null
+        }
+    },
+    {
+        "id": 9,
+        "clause_type": "insurance",
+        "original": "The contractor shall maintain insurance coverage as determined solely by the company.",
+        "rewritten": "The contractor and the company shall agree on and maintain insurance coverage in accordance with mutually agreed terms.",
+        "explanation": "Here are the changes between the original and rewritten clauses:\n\n• **From \"solely by the company\" to \"mutually agreed terms\"**: \n   This change makes the clause more balanced by allowing both parties to have a say in determining the insurance coverage. It's no longer one-sided, where the company unilaterally decides. This makes the contract more equitable.\n\n• **From \"shall\" to \"agree on\"**:\n   This change shifts from a mandatory instruction to a collaborative agreement. It implies that both parties need to discuss and come to a mutual understanding, rather than just the contractor following a company-imposed rule.\n\n• **Addition of \"in accordance with\"**:\n   This addition clarifies that the insurance coverage must meet certain conditions or standards agreed upon by both parties. It adds specificity and ensures that the agreed terms are not vague.\n\n**No missing protections like notice periods were added in the rewritten clause.**\n\n**One-sided terms were made mutual**: The original clause had a one-sided term where the company solely determined the insurance coverage. The rewritten clause balances this by requiring mutual agreement, making the contract more equitable.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 2,
+            "fairness": 4,
+            "clarity": null
+        }
+    },
+    {
+        "id": 10,
+        "clause_type": "anti-assignment",
+        "original": "Neither party may assign this agreement without the prior written consent of the company.",
+        "rewritten": "Neither party may assign this agreement without the prior written consent of the other party.",
+        "explanation": "Here's the comparison between the original and rewritten clauses:\n\n* Original: \"the company\"  \n  Rewritten: \"the other party\"  \n  Explanation: This change makes the clause more neutral and fair. The original clause gave the company unilateral control over assignment, whereas the rewritten clause gives the other party the same level of control.\n\n* Original: \"the prior written consent\"  \n  Rewritten: \"the prior written consent\"  \n  Explanation: No change was made here, as the original clause already required prior written consent. However, in practice, this can be seen as a missed opportunity to specify a notice period or other protections before assignment.\n\n* Original: \"the prior written consent of the company\"  \n  Rewritten: \"the prior written consent of the other party\"  \n  Explanation: This change makes the clause more mutual, as both parties have the same requirement for consent before assignment.\n\nOverall, the changes make the clause more neutral and fair, giving both parties equal control over assignment. However, it's worth noting that the lack of additional protections, such as a notice period, leaves room for potential disputes.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 5,
+            "fairness": 4,
+            "clarity": null
+        }
+    },
+    {
+        "id": 11,
+        "clause_type": "non-disparagement",
+        "original": "The employee agrees not to make any negative statements about the company at any time.",
+        "rewritten": "The employee agrees not to make any negative statements about the company during their employment term.\n\n(I made a slight edit to the original clause to make it clearer that the restriction only applies during the employment term, which is an implied period of time in most employment contracts. If you would like to add a specific term, please let me know.)",
+        "explanation": "Here are the changes between the original and rewritten clauses:\n\n* The original clause has been limited to the employment term.\n  The rewritten clause makes the restriction clearer and more reasonable by linking it to the duration of the employment. This change implies that the employee is free to express opinions once they are no longer employed by the company.\n\n* The original clause is unconditional, while the rewritten clause now has a clear temporal boundary.\n  Limiting the restriction to the employment term makes the clause more specific and reduces potential abuse or overreach by the company.\n\n* The scope of the restriction remains the same, covering only negative statements about the company.\n  This change does not add any new fairness or clarity but maintains the restrictive nature of the original clause.\n\n* There has been no addition of mutual terms or protections to ensure fairness.\n  Both clauses remain one-sided, imposing a restriction on the employee without providing any reciprocal obligations on the company.\n\n* There is no addition of notice periods or other protections.\n  The rewritten clause relies on an implied employment term, which might not provide sufficient protection for the employee.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 3,
+            "fairness": 2,
+            "clarity": null
+        }
+    },
+    {
+        "id": 12,
+        "clause_type": "ip ownership assignment",
+        "original": "All intellectual property created during the term of this agreement shall belong exclusively to the company.",
+        "rewritten": "All intellectual property created during the term of this agreement shall belong exclusively to the company, with the company acknowledging the creator's rights as permitted by law.",
+        "explanation": "Here are the changes made to the original clause:\n\n* The rewritten clause includes \"with the company acknowledging the creator's rights as permitted by law.\"\n    - This change makes the clause fairer because it acknowledges the creator's rights, which may include moral rights or rights to attribution. This provides a level of protection for the creator's work and interests.\n    - This change also clarifies that the company is not taking absolute ownership, but rather, it is acknowledging the creator's rights, which is a more balanced approach.\n\nThere are no one-sided terms in the rewritten clause. In fact, the change makes the terms more mutual by acknowledging the creator's rights.\n\nNo missing protections, such as notice periods, were added to the clause. The rewritten clause is more of a clarification of the company's ownership rights, rather than an addition of new obligations or protections.\n\nOverall, the rewritten clause provides a more balanced approach to intellectual property ownership, while still vesting ownership with the company.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 5,
+            "fairness": 2,
+            "clarity": null
+        }
+    },
+    {
+        "id": 13,
+        "clause_type": "irrevocable or perpetual license",
+        "original": "The company grants the licensee an irrevocable, perpetual license to use the technology.",
+        "rewritten": "The company grants the licensee a perpetual license to use the technology, subject to termination in accordance with the terms of this agreement.\n\nRewritten Clause:\n\nThe company grants the licensee a perpetual license to use the technology, which may be terminated only in accordance with the terms of this agreement.",
+        "explanation": "Here are the changes made to the original clause:\n\n* **Removed the word \"irrevocable\"**: This word created a one-sided term where the company had no way to terminate the license, even if the licensee was violating the agreement's terms. Removing it allows for a more balanced approach.\n* **Added \"subject to termination\"**: This change clarifies that the perpetual license is not absolute and can be terminated under certain circumstances.\n* **Added \"in accordance with the terms of this agreement\"**: This phrase ensures that the termination of the license will be governed by the rules set out in the contract, providing clarity and predictability.\n* **Added \"which may be terminated\"**: This change makes it clear that the license is not necessarily perpetual, but can be terminated under certain circumstances.\n* **Added \"only in accordance with the terms of this agreement\"**: This phrase emphasizes that the termination of the license must follow the procedures outlined in the contract.\n\nThese changes make the clause fairer and clearer by:\n\n* Balancing the power between the company and the licensee\n* Providing clarity on when the license can be terminated\n* Ensuring that the termination of the license will be governed by the contract's terms\n* Avoiding one-sided terms that favor the company\n\nMissing protections, such as notice periods, have not been explicitly added, but the language \"in accordance with the terms of this agreement\" suggests that the contract may contain provisions governing the termination process.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 3,
+            "fairness": 3,
+            "clarity": null
+        }
+    },
+    {
+        "id": 14,
+        "clause_type": "effective date",
+        "original": "The effective date of this agreement shall be the date of the last signature.",
+        "rewritten": "The effective date of this agreement shall be the date on which all parties have signed.",
+        "explanation": "Here are the changes between the two clauses:\n\n* Change 1: \"date of the last signature\" -> \"date on which all parties have signed\"\n  * This change clarifies the effective date by specifying that it only applies after all parties have signed the agreement. This makes the clause fairer by ensuring that the agreement does not take effect before all parties have had a chance to sign.\n\n* Change 2: Original clause seems to allow the agreement to take effect even if the last party to sign has not yet received a signed copy of the agreement. This could lead to confusion and unfairness if the last party to sign does not have a complete understanding of the agreement terms.\n  * The rewritten clause addresses this issue by requiring that all parties have signed, which implies that all parties should have a complete understanding of the agreement terms before it takes effect.\n\n* No one-sided terms were made mutual, but the rewritten clause may provide more protection for all parties by ensuring that the agreement takes effect only when all parties are aware of its terms.\n\n* No missing protections were added in this specific clause, but the rewritten clause may help prevent disputes by clarifying the effective date of the agreement.\n\nOverall, the rewritten clause provides a clearer and more fair effective date by requiring that all parties have signed before the agreement takes effect.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 4,
+            "fairness": 3,
+            "clarity": null
+        }
+    },
+    {
+        "id": 15,
+        "clause_type": "expiration date",
+        "original": "This agreement shall expire on December 31, 2025, with no option for renewal.",
+        "rewritten": "Either party may terminate this agreement on December 31, 2025, with no option for renewal.",
+        "explanation": "Here are the changes between the original and rewritten clauses:\n\n* Changed \"shall expire\" to \"either party may terminate\": This change makes the clause more neutral and mutual. It no longer implies that one party (the drafter) has the unilateral power to end the agreement.\n\n* Added \"either party\" to specify who can terminate the agreement: This change clarifies that both parties have the option to end the agreement, making it a mutual understanding.\n\n* No change to the expiration date: The expiration date remains the same, which is December 31, 2025.\n\n* No change to the renewal option: The clause still has \"no option for renewal,\" meaning that neither party can extend the agreement beyond its expiration date.\n\nThere are no additional protections, such as notice periods, added to the rewritten clause.\n\nOverall, the rewritten clause is fairer and clearer because it makes the termination clause more mutual and neutral, rather than implying that one party has more control over the agreement.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 4,
+            "fairness": 4,
+            "clarity": null
+        }
+    },
+    {
+        "id": 16,
+        "clause_type": "price restrictions",
+        "original": "The company may change the pricing at any time without notice to the other party.",
+        "rewritten": "Either party may change the pricing with reasonable written notice to the other party.",
+        "explanation": "Here are the changes and explanations:\n\n* **Added \"Either party\"**: This change makes the clause mutual, allowing both parties to change pricing. This is fairer as it gives both parties the same level of control.\n* **Added \"with reasonable written notice\"**: This change adds a crucial protection for the other party by requiring written notice before any changes can be made. This provides transparency and allows the other party to prepare for potential changes.\n* **Removed \"at any time\"**: This change removes an absolute power from the company (now referred to as \"the other party\" in this example) to change pricing without limitations. This makes the clause fairer by providing a window for the other party to adjust to changes.\n* **Preserved flexibility for price changes**: The rewritten clause still allows either party to change pricing, which is a reasonable accommodation to allow for flexibility in the agreement.\n\nOverall, the rewritten clause is clearer and fairer by making the terms mutual, adding a written notice requirement, and removing an absolute power to change pricing.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 4,
+            "fairness": 3,
+            "clarity": null
+        }
+    },
+    {
+        "id": 17,
+        "clause_type": "no-solicit of employees",
+        "original": "The employee shall not solicit or hire any employees of the company for 2 years after termination.",
+        "rewritten": "During the 2-year period following termination, the employee shall not solicit or hire any employees of the company without prior written consent from the company.",
+        "explanation": "Here are the changes between the original and rewritten clauses, along with their explanations:\n\n* **Change 1: Added \"without prior written consent from the company\"**\nThe rewritten clause adds a condition that requires the company's prior written consent before the employee can solicit or hire company employees. This makes the clause fairer by giving the company a chance to review and approve or deny the request, which may prevent potential disputes.\n\n* **Change 2: Added a specific time frame (\"During the 2-year period following termination\")**\nThe rewritten clause explicitly states the time frame for the no-solicit clause, which clarifies the scope and duration of the restriction. This makes the clause clearer by providing a specific reference point for both parties.\n\n* **Change 3: Added \"prior written consent\" which is a mutual protection**\nThe requirement for prior written consent creates a mutual protection for both the employee and the company. The company can review and approve or deny the request, while the employee is also protected from potential disputes by having a clear and written agreement.\n\n* **No missing protections were added**\nHowever, the rewritten clause does not add any additional protections such as notice periods. It is essential to consider including these protections to ensure fairness and clarity in the contract.\n\n* **No one-sided terms were made mutual**\nThe rewritten clause does not change the one-sided nature of the no-solicit clause. The employee is still restricted from soliciting or hiring company employees, but the company has a new mechanism to review and approve or deny such requests.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 5,
+            "fairness": 3,
+            "clarity": null
+        }
+    },
+    {
+        "id": 18,
+        "clause_type": "post-termination services",
+        "original": "The service provider shall continue to provide transition services for 6 months after termination at no additional cost.",
+        "rewritten": "The service provider shall continue to provide transition services for a period of 6 months after termination at no additional cost to either party.",
+        "explanation": "Here are the changes between the original and rewritten clauses:\n\n* The original clause only states \"at no additional cost\" for the service provider, while the rewritten clause adds \"to either party.\" This change makes the clause fairer by implying that the service provider cannot pass on any costs to the client during the post-termination period.\n* The rewritten clause adds the phrase \"a period of\" before the duration (6 months). This change makes the clause clearer by specifying that the duration is a period of time, rather than just a number.\n\nThese changes do not necessarily highlight one-sided terms being made mutual. However, the addition of \"to either party\" does bring a level of balance to the clause.\n\nNo missing protections were added in these changes. The original clause already mentioned a specific duration of 6 months, which suggests that notice periods may not be necessary. However, it's essential to consider other factors, such as the service provider's obligations and the client's rights, when drafting a post-termination services clause.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 5,
+            "fairness": 4,
+            "clarity": null
+        }
+    },
+    {
+        "id": 19,
+        "clause_type": "revenue/profit sharing",
+        "original": "The company shall share 5% of net revenue with the partner, calculated solely by the company.",
+        "rewritten": "The company and the partner shall jointly calculate and share 5% of net revenue in a manner agreed upon by both parties. \n\nOR \n\nThe company shall share 5% of net revenue with the partner, calculated jointly in accordance with a method agreed upon by the company and the partner.\n\nOR \n\nThe company shall calculate and share 5% of net revenue with the partner in a manner agreed upon by both parties.\n\nThese rewritten clauses are more balanced, less one-sided, clearer, and easier to understand than the original. They also avoid changing ownership structures, payment amounts, percentages, or financial allocations.",
+        "explanation": "Here are the changes between the original and rewritten clauses:\n\n* **Added \"jointly\"**: The original clause only mentioned the company calculating the 5% share. The rewritten clauses include \"jointly\" to make it clear that both parties will participate in the calculation process. This makes the clause clearer and more inclusive of the partner's role.\n* **Made calculation method subject to agreement**: The original clause stated that the company would solely calculate the 5% share. The rewritten clauses state that the calculation method will be agreed upon by both parties. This makes the clause more balanced and less one-sided, as the partner has a say in how the calculation is made.\n* **Added mutual language**: The original clause was written from the company's perspective, with the partner being told what to do. The rewritten clauses use mutual language, such as \"the company and the partner shall jointly calculate,\" to make the clause more inclusive and less one-sided.\n* **Clarified scope of agreement**: The original clause only mentioned the calculation of the 5% share. The rewritten clauses clarify that the agreement includes the calculation and sharing of the 5% share, making the scope of the agreement clearer.\n* **Removed sole reliance on company**: The original clause stated that the company would solely calculate the 5% share. The rewritten clauses remove this sole reliance on the company, making the clause more balanced and less one-sided.\n* **Added flexibility**: The original clause was quite rigid in its approach. The rewritten clauses offer more flexibility in how the calculation method will be agreed upon, making the clause more adaptable to different situations.\n* **Improved clarity and readability**: The rewritten clauses use simpler language and a more logical structure, making the clause easier to understand.\n\nNo missing protections (like notice periods) were added to the rewritten clauses, but the changes made above improve the overall balance and clarity of the clause.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 3,
+            "fairness": 4,
+            "clarity": null
+        }
+    },
+    {
+        "id": 20,
+        "clause_type": "volume restriction",
+        "original": "The vendor shall not sell more than 1000 units per quarter without prior written approval from the company.",
+        "rewritten": "The vendor shall not sell more than 1000 units per quarter without prior written notification to, and approval from, the other party.\n\nNote: The change is minor, swapping \"prior written approval from the company\" with \"prior written notification to, and approval from, the other party\" to make the language more mutual.",
+        "explanation": "Here are the changes and their explanations:\n\n* Swapped \"prior written approval from the company\" with \"prior written notification to, and approval from, the other party.\"\n   This change clarifies that both parties have a role in the approval process. The term \"other party\" indicates that it's a mutual agreement between the vendor and the company, rather than a one-sided approval from the company.\n\n* Added \"notification to\" before \"approval from\".\n   This change clarifies the process: the vendor must notify the other party before seeking approval. This adds a protection to the vendor, ensuring they're aware of the approval requirements before proceeding.\n\nThe change makes the clause fairer and clearer by:\n\n- Making the terms mutual: The original clause implied that the company had unilateral control over the approval process. The rewritten clause makes it clear that both parties are involved.\n- Adding a protection: The rewritten clause includes a notification requirement, which provides the vendor with a clearer understanding of the approval process.\n\nOverall, the rewritten clause is more balanced and provides clarity on the approval process, making it a more mutual and fair agreement.",
+        "similar_clauses_used": [],
+        "scores": {
+            "correctness": 3,
+            "fairness": 3,
+            "clarity": null
+        }
     }
-  },
-  {
-    "id": 2,
-    "clause_type": "non-compete",
-    "original": "The employee shall not work for any competing business for a period of 5 years after termination.",
-    "rewritten": "\"For a period of 3 years following the termination of employment, the employee agrees to refrain from engaging in activities that are directly competitive with the business operations of the former employer within the geographic area where the employee was primarily based during their employment. The employee also agrees not to solicit or induce any employees of the former employer to leave their employment with the company for a period of 2 years following termination. In consideration of these covenants, the employer agrees to provide reasonable notice of termination and to pay out any accrued but unused vacation time or bonuses upon termination, provided that the employee has provided at least 30 days' notice of resignation. If any restriction set forth in this Section is found by any court of competent jurisdiction to be unenforceable because it extends for too long a period of time or over too great a range of activities or in too broad a geographic area, it shall be interpreted to extend only over the maximum period of time, range of activities or geographic area as to which it may be enforceable.\"",
-    "explanation": "Here are the changes made to the non-compete clause:\n\n* **Added specificity to geographic area and business operations**: The rewritten clause specifies the geographic area where the employee was primarily based during their employment and the business operations of the former employer. This makes the clause clearer and more specific, reducing the risk of misinterpretation.\n* **Introduced time limits for soliciting employees and engaging in competing activities**: The rewritten clause sets a separate time limit for soliciting employees (2 years) and engaging in competing activities (3 years). This makes the clause more nuanced and acknowledges that these activities may be distinct and warrant different time limits.\n* **Added consideration for the employer's obligations**: The rewritten clause requires the employer to provide reasonable notice of termination, pay out accrued but unused vacation time or bonuses, and pay these benefits upon 30 days' notice of resignation from the employee. This adds a level of fairness to the clause by requiring the employer to provide certain protections to the employee.\n* **Introduced a limitation of remedies clause**: The rewritten clause states that if any restriction is found to be unenforceable, it shall be interpreted to extend only over the maximum period of time, range of activities, or geographic area as to which it may be enforceable. This clause helps to mitigate the risk of the original clause being deemed overly broad or long.\n* **Added mutual obligation**: The rewritten clause requires the employer to provide certain protections to the employee in consideration for the employee's non-compete obligations. This makes the clause more mutual and acknowledges the reciprocal nature of the obligations.\n* **Modified the original clause to be more specific and less one-sided**: The rewritten clause is more specific and nuanced, reducing the risk of the clause being deemed overly broad or one-sided.\n\nOverall, the rewritten clause is more specific, nuanced, and fair to both parties. It acknowledges the reciprocal nature of the obligations and adds certain protections for the employee.",
-    "similar_clauses_used": [
-      "Executive agrees that for a period of two (2) years following the Termination Date, Executive will not, either for herself or on behalf of any other p",
-      "As partial consideration for entering into this Agreement, during the Term of the Agreement through two (2) years after the date of termination of the",
-      "The Executive agrees that he shall not, for three (3) years from the date hereof, directly or indirectly solicit or induce any of the employees of the",
-      "Executive shall not during the term of Executive’s employment and for one year following Executive’s termination of employment (the “ Restricted Perio",
-      "The Employee shall not, during the Restricted Period on the Executive's own behalf or on behalf of any person, whether directly or indirectly, in all "
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 3,
-    "clause_type": "cap on liability",
-    "original": "The company's total liability shall not exceed the fees paid in the last month.",
-    "rewritten": "\"The Parties agree that the Company's total liability for any claims, damages, or losses arising from this Agreement shall not exceed the higher of (i) the aggregate fees paid by the Company to the Consultant under this Agreement in the last 12 months, or (ii) the amount of any insurance coverage maintained by the Company to indemnify its officers, directors, or employees for similar claims, damages, or losses. The Consultant shall also be responsible for any claims, damages, or losses arising from its own actions or omissions, and shall cooperate with the Company in defending against any claims, damages, or losses, provided that the Company has not already settled or paid any such claims, damages, or losses.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n• **Change 1: Replaced \"fees paid in the last month\" with \"aggregate fees paid in the last 12 months\"**\n   - Why: This change makes the cap on liability more realistic and fair by averaging out the fees over a year, rather than just the last month. This reduces the likelihood of a disproportionate cap being applied in a given month.\n\n• **Change 2: Added a reference to insurance coverage**\n   - Why: This change acknowledges the possibility that the company may have insurance coverage that would apply to the liability cap, and makes the cap more equitable by considering this additional factor.\n\n• **Change 3: Introduced a \"higher of\" clause to determine the liability cap**\n   - Why: This change provides a more nuanced approach to determining the liability cap, ensuring that the cap is always the higher of the two options, rather than relying on a single measure.\n\n• **Change 4: Added a provision for the Consultant's responsibility for its own actions**\n   - Why: This change makes the Consultant more accountable for its own actions and omissions, which is a fair and clear allocation of risk.\n\n• **Change 5: Added a provision for the Consultant's cooperation in defending against claims**\n   - Why: This change ensures that the Consultant will assist the company in defending against claims, which is a mutual obligation and helps to maintain a fair and collaborative relationship.\n\n• **Change 6: Added a provision for the company's settlement or payment of claims**\n   - Why: This change clarifies the Consultant's obligations in the event of claims or losses, and ensures that the Consultant will not be responsible for claims that have already been settled or paid.\n\nSome one-sided terms were made mutual, as the revised clause adds obligations on the Consultant (such as cooperation in defending against claims). However, the overall effect of the changes is to make the clause more equitable and clear, rather than altering the balance of risk and responsibility between the parties.",
-    "similar_clauses_used": [
-      "The Company will indemnify and hold you harmless to the maximum extent permitted by applicable law against judgments, fines, amounts paid in settlemen",
-      "The Company has no Liability and there is no basis for any Action or Proceeding with respect to any Liability, except for Liabilities as set forth on ",
-      "Under no circumstances shall the Parties be liable for any indirect, incidental, economic, special, punitive, or consequential, damages, whether for b",
-      "Subject to Section 12.9 below, (a) any Restricted Company fails to pay when due (after lapse of any applicable grace period) any recourse Debt in exce",
-      "The Company shall not be liable under this Agreement to make any payment in connection with any Proceeding to the extent Indemnitee has otherwise actu"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 4,
-    "clause_type": "governing law",
-    "original": "This agreement shall be governed exclusively by the laws of the State of Delaware, and any disputes must be resolved in Delaware courts only.",
-    "rewritten": "\"This Agreement shall be governed by, and construed in accordance with, the laws of the State of Delaware, without giving effect to any choice of law or conflict of law rules or provisions (whether of the State of Delaware or any other jurisdiction) that would cause the application of the laws of any jurisdiction other than the State of Delaware. Any dispute arising out of or related to this Agreement shall be submitted to the state or federal courts of Delaware for resolution, and the parties agree to submit to jurisdiction and venue therein, provided that each party shall have the right to choose the court and jurisdiction in which they wish to bring any claim or action, subject to the other party's right to object to such choice of court for good cause shown.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n* **Added jurisdictional flexibility**: The rewritten clause allows each party to choose the court and jurisdiction for bringing a claim or action, but the other party can object to such choice for good cause shown. This change makes the clause fairer by giving both parties more control over their dispute resolution process.\n* **Expanded governing law provision**: The rewritten clause includes a longer governing law provision that explicitly excludes the application of any jurisdiction's conflict of law rules. This change makes the clause clearer by providing a more detailed explanation of the governing law.\n* **Removed exclusive jurisdiction requirement**: The rewritten clause no longer requires disputes to be resolved in Delaware courts only, but instead allows disputes to be submitted to Delaware courts for resolution. This change makes the clause fairer by giving parties more options for resolving disputes.\n* **Added specific language for dispute resolution**: The rewritten clause includes specific language for submitting disputes to courts, which makes the clause clearer and more detailed.\n* **Removed \"must\" language**: The rewritten clause no longer uses the word \"must\" in relation to dispute resolution, which makes the language less prescriptive and potentially more palatable to one party.\n* **Mutual choice of court provision**: The rewritten clause allows both parties to choose the court and jurisdiction for bringing a claim or action, making this term mutual.\n* **Potential protection for notice periods**: The rewritten clause does not explicitly add any protections for notice periods, but it does allow for objections to a chosen court for good cause shown, which could potentially be used to protect one party's notice rights.\n\nOverall, the rewritten clause is longer and more detailed, which can make it clearer and more comprehensive. However, it also introduces some new complexities and potential for disputes, so it's essential to carefully review and negotiate the language to ensure it meets the needs of all parties involved.",
-    "similar_clauses_used": [
-      "This Agreement shall be governed by, and construed in accordance with, the laws of the State of Delaware, without giving effect to any choice of law o",
-      "This Agreement shall be governed in all respects by the laws of the State of Delaware, without regard to conflicts of laws principles thereof.",
-      "This Agreement shall be governed by, and construed in accordance with, the laws of the State of Delaware, without giving effect to any choice or confl",
-      "This Agreement shall be governed by, and construed in accordance with the laws of the State of Delaware without resort to any principle of conflict of",
-      "This Agreement shall be governed by and construed in accordance with the Laws of the State of Delaware without giving effect to any choice or conflict"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 5,
-    "clause_type": "license grant",
-    "original": "The licensee is granted a non-exclusive, non-transferable license to use the software.",
-    "rewritten": "\"The parties agree that the licensee is granted a non-exclusive, non-transferable license to use the software, and the licensor retains all other rights and interests in the software, including the right to terminate or modify the license under Section [insert reference to applicable section]. The licensee shall not use the software in any way that would infringe on the licensor's intellectual property rights or confidentiality obligations. This license grant is subject to the terms and conditions of this Agreement, and the parties agree to cooperate in good faith to resolve any disputes or issues arising out of the use of the software.\"",
-    "explanation": "**Changes to the original clause:**\n\n* **Added a sentence mentioning the licensor's retained rights:** The original clause only granted the licensee a license, while this new sentence clarifies that the licensor retains all other rights and interests in the software, including the right to terminate or modify the license. This change is fairer because it prevents the licensee from assuming they have complete control over the software.\n* **Added a condition for non-infringement:** This new sentence requires the licensee to use the software in a way that does not infringe on the licensor's intellectual property rights or confidentiality obligations. This change is clearer because it sets out a specific expectation for the licensee's behavior.\n* **Added a mutual obligation to cooperate in resolving disputes:** The original clause was one-sided, with the licensee having no obligation to cooperate with the licensor. This new sentence makes the clause fairer by requiring both parties to cooperate in good faith to resolve any disputes or issues arising out of the use of the software.\n* **Added a reference to the terms and conditions of the Agreement:** This new sentence makes it clear that the license grant is subject to the terms and conditions of the Agreement, which may include other obligations and restrictions on both parties. This change is clearer because it sets out the context in which the license grant operates.\n* **Removed the single sentence of the original clause:** While this may seem like a negative change, it actually highlights the importance of including a clear and comprehensive license grant. The original clause was brief, but it lacked detail and clarity. The rewritten clause addresses these issues by providing more information and context.\n\n**Note:** The rewritten clause still has a one-sided aspect in that the licensor has the right to terminate or modify the license under Section [insert reference to applicable section], while the licensee may not have the same right. To make the clause more mutual, the licensor could consider adding a provision that allows the licensee to terminate or modify the license under certain circumstances.",
-    "similar_clauses_used": [
-      "Subject to the terms and conditions of this Agreement, Licensor hereby grants to Licensee an exclusive (except with respect to Walls, which license sh",
-      "Licensee may freely assign or otherwise transfer all or any of its rights, or delegate or otherwise transfer all or any of its obligations or performa",
-      "Subject to the terms and conditions of this Agreement, including the Retained Rights, Licensor hereby grants to Licensee an exclusive, sublicensable (",
-      "Except for the license rights granted under this Article 2, Licensor grants no other rights or licenses of whatsoever nature and Licensee shall not be",
-      "Licensee shall be solely responsible for obtaining, at its sole expense, any agreements with Third Parties required in order to lawfully perform its C"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 6,
-    "clause_type": "no-solicit of customers",
-    "original": "The employee shall not solicit any customers of the company for a period of 3 years after leaving.",
-    "rewritten": "\"For a period of three (3) years following the date of termination of employment, neither the employee nor the company shall, without the prior written consent of the other, directly or indirectly (i) solicit or assist another person, firm, or entity to solicit any employee, supplier, customer, or other person having business relations with the company to terminate or curtail their relationship with the company; (ii) hire, employ, retain, or solicit or assist another person, firm, or entity to hire, employ, or retain, any employee of the company; or (iii) solicit or accept business from any customer who had a relationship with the company during the employee's term of employment.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n* **Added specificity on prohibited actions**: The rewritten clause lists specific actions (soliciting, assisting, hiring, etc.) that are prohibited, making it clearer what is expected of both parties.\n* **Mutual obligation**: The rewritten clause makes it a mutual obligation for both the employee and the company not to solicit customers, rather than just the employee. This makes the clause fairer.\n* **Added scope of prohibited relationships**: The rewritten clause includes not only customers but also suppliers, employees, and other business relations, making it clearer what is covered.\n* **Added protection against indirect solicitation**: The rewritten clause includes indirect solicitation (e.g. assisting someone else to solicit), which the original clause did not cover.\n* **Added protection against hiring company employees**: The rewritten clause prohibits not only soliciting but also hiring or employing company employees, which adds an additional layer of protection.\n* **Added notice period**: The rewritten clause includes a notice period of \"following the date of termination of employment\", which was not mentioned in the original clause.\n* **Defined key terms**: The rewritten clause defines key terms (e.g. \"date of termination of employment\") and includes specific language to make the clause clearer.\n* **Clarified consent requirements**: The rewritten clause requires prior written consent from the other party for any solicitation or business engagement, which adds clarity and specificity.\n* **Revised time period**: The rewritten clause uses the phrase \"three (3) years following the date of termination of employment\", which is more specific than the original clause's \"period of 3 years after leaving\".",
-    "similar_clauses_used": [
-      "Without the prior written consent of the Company, for a period of three (3) years following the date of this Agreement, Employee shall not directly or",
-      "During the Employment Period and for 18 months following any Date of Termination, you shall not, directly or indirectly, on behalf of yourself or of a",
-      "During the Restricted Period, Participant agrees that Participant will not, either on Participant’s own behalf or on behalf of any other person or ent",
-      "Employee agrees that for a twenty-four (24) month period following the Separation Date, he will not, for himself or for any third party, directly or i",
-      "During the Restricted Period, Employee shall not, directly or indirectly solicit or induce or attempt to solicit or induce, any customer, lender, supp"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 7,
-    "clause_type": "audit rights",
-    "original": "The company shall have the right to audit the contractor's records at any time without prior notice.",
-    "rewritten": "\"The Company and the Contractor shall each maintain accurate and complete records related to the performance of the Agreement, including but not limited to, financial transactions, compliance with applicable laws and regulations, and any other matters relevant to the Agreement. Upon reasonable prior notice and during normal business hours, the Company may conduct one audit of the Contractor's records per year, through an independent third-party auditor designated by the Company. The Contractor shall be responsible for the costs of the audit. The Company shall also provide the Contractor with reasonable access to the Company's records related to the Agreement upon the Contractor's reasonable request. In the event of a dispute or suspected non-compliance with the Agreement, the Company and the Contractor may mutually agree to conduct an additional audit, the costs of which shall be borne by the party whose records are being audited.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n* **Added mutual responsibility for maintaining records**: Both parties are now required to maintain accurate and complete records, making it fair and clear that both parties are responsible for their actions.\n* **Defined the scope of records to be audited**: The rewritten clause specifies that the audit includes financial transactions, compliance with laws and regulations, and other relevant matters, making it clear what is being audited.\n* **Added a notice period for audits**: The rewritten clause requires the company to provide reasonable prior notice and conduct the audit during normal business hours, which is a fair and reasonable requirement.\n* **Limited the frequency of audits**: The rewritten clause limits the company to one audit per year, which is a reasonable restriction to prevent excessive audits.\n* **Designated an independent third-party auditor**: The rewritten clause requires the company to use an independent third-party auditor, which adds a layer of objectivity and fairness to the audit process.\n* **Assigned costs to the auditor**: The rewritten clause requires the contractor to bear the costs of the audit, which is a fair and reasonable requirement.\n* **Added access to the company's records**: The rewritten clause allows the contractor to request access to the company's records related to the agreement, which is a mutual and fair requirement.\n* **Added a provision for additional audits in case of a dispute**: The rewritten clause allows for additional audits in case of a dispute or suspected non-compliance, which is a fair and reasonable provision to prevent disputes.\n* **Changed the tone from absolute to conditional**: The rewritten clause uses phrases such as \"reasonable prior notice\" and \"mutually agree to conduct an additional audit,\" which suggests that the company and contractor are working together to resolve issues rather than imposing absolute requirements.\n\nOverall, the rewritten clause is more comprehensive, fair, and clear than the original clause, and it adds protections for both parties.",
-    "similar_clauses_used": [
-      "The Custodian shall create and maintain records relating to its activities under this Agreement with respect to the Collateral Loans or other property",
-      "Each Party shall use reasonable efforts to maintain a complete and correct set of records pertaining to the purchase and sale of the Exclusive Product",
-      "Each Grantor shall keep accurate and complete records of the Collateral (including proceeds thereof). Each Grantor shall mark its books and records pe",
-      "Licensee shall keep and shall cause its Affiliates and sublicensees to keep books and accounts of record in connection with the sale of Licensed Produ",
-      "In the performance of the Work, Contractor shall not knowingly employ any employee except in compliance, in all material respects, with all applicable"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 8,
-    "clause_type": "renewal term",
-    "original": "This agreement shall automatically renew for successive one-year terms unless the company provides notice of termination.",
-    "rewritten": "\"This Agreement shall have an initial term of one year, commencing on the Effective Date, unless terminated earlier in accordance with Section [insert section number] hereof. Following the initial term, this Agreement shall automatically renew for successive one-year terms unless either party provides at least thirty (30) days' written notice to the other party prior to the expiration of the then-existing term, or unless this Agreement is otherwise terminated in accordance with Section [insert section number] hereof.\"",
-    "explanation": "Here are the changes made to the original clause:\n\n* **Added an initial term**: The original clause only mentioned automatic renewal, but it didn't specify when the agreement would start. Adding an initial term clarifies the beginning of the agreement and prevents potential disputes about when the renewal period starts.\n* **Included a reference to termination in accordance with Section [insert section number]**: This addition recognizes that the agreement may have other termination clauses that could affect the renewal term. This makes the renewal term clause more comprehensive and prevents potential conflicts with other termination clauses.\n* **Added a requirement for written notice prior to termination**: The original clause only mentioned the company providing notice, but the rewritten clause makes it mutual, requiring either party to provide written notice. This change makes the clause fairer by giving both parties an equal opportunity to terminate the agreement.\n* **Specified the notice period (at least thirty (30) days)**: Adding a specific notice period provides clarity and prevents disputes about how much notice is required. This change also makes the clause clearer by providing a clear expectation for both parties.\n* **Replaced \"unless the company provides notice\" with \"unless either party provides notice\"**: This change makes the clause mutual, requiring either party to provide notice. This change makes the clause fairer by giving both parties an equal opportunity to terminate the agreement.\n* **Added the phrase \"or unless this Agreement is otherwise terminated in accordance with Section [insert section number] hereof\"**: This addition recognizes that the agreement may be terminated through other means, and it ensures that the renewal term clause is not in conflict with other termination clauses.\n\nOverall, the rewritten clause is clearer and more comprehensive than the original clause. It provides a clear understanding of when the agreement starts and ends, and it gives both parties equal opportunities to terminate the agreement.",
-    "similar_clauses_used": [
-      "The Company shall employ the Executive and the Executive shall continue to serve the Company and its Subsidiaries on conditions set forth herein for a",
-      "The initial term of this Agreement shall be for the period beginning on June 1, 2016 and ending on December 31, 2016. On January 1, 2017 and on each s",
-      "The Company agrees to employ Executive and Executive agrees to accept employment with the Company for a term (the “ Term ”) commencing on the date her",
-      "This Agreement shall have an initial term beginning from the date of its execution by both parties hereto and shall terminate on February 15 , 201 8 p",
-      "This Agreement shall commence on the Effective Date and continue in effect for a period of ten (10) years (“Primary Term”). Thereafter, the Agreement "
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 9,
-    "clause_type": "insurance",
-    "original": "The contractor shall maintain insurance coverage as determined solely by the company.",
-    "rewritten": "\"The contractor and the company shall jointly determine the type and scope of insurance coverage necessary to fulfill the obligations of this agreement. The contractor shall maintain insurance coverage for its own liability and the company shall maintain insurance coverage for its own liability, as well as for any acts or omissions of the contractor that may result in damages or losses to the company. The terms and conditions of all policies of insurance required to be maintained by the contractor shall be reasonable and customary, with conditions and exclusions consistent with insurance written for facilities of similar size and scope as the project or facility. The contractor shall be solely responsible for the cost of premiums and deductibles for its own liability insurance, and the company shall be solely responsible for the cost of premiums and deductibles for the company's liability insurance. The contractor shall provide the company with proof of insurance coverage and the company shall provide the contractor with a copy of its insurance policies, if requested.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n* **Joint determination of insurance coverage**: The rewritten clause specifies that the contractor and the company will jointly determine the type and scope of insurance coverage, making the term more collaborative and less one-sided.\n\t+ Why: This change makes the clause fairer by ensuring both parties have input and are invested in the insurance coverage.\n* **Shared liability insurance costs**: The rewritten clause states that the company will maintain insurance coverage for damages or losses caused by the contractor's acts or omissions, and vice versa.\n\t+ Why: This change makes the clause clearer by specifying the types of risks that each party will cover, and highlights the mutual responsibility for liability insurance.\n\t+ Highlight: One-sided terms were made mutual.\n* **Reasonable and customary insurance terms**: The rewritten clause requires that the terms and conditions of all insurance policies be reasonable and customary, with conditions and exclusions consistent with insurance written for similar projects or facilities.\n\t+ Why: This change makes the clause clearer by specifying the standards for insurance policies, ensuring that both parties are protected.\n* **Cost responsibility**: The rewritten clause specifies that each party is solely responsible for the cost of premiums and deductibles for their own liability insurance.\n\t+ Why: This change makes the clause clearer by specifying the financial responsibilities of each party.\n* **Proof of insurance and policy disclosure**: The rewritten clause requires the contractor to provide the company with proof of insurance coverage and the company to provide the contractor with a copy of its insurance policies, if requested.\n\t+ Why: This change makes the clause clearer by specifying the requirements for disclosure and proof of insurance coverage.\n* **Additional protections**: The rewritten clause does not explicitly add any notice periods, but it does provide more detailed information about the insurance requirements and responsibilities.\n\t+ Why: This change makes the clause clearer by providing more specific information about the insurance requirements, but does not add any new protections like notice periods.",
-    "similar_clauses_used": [
-      "In performing the Services, the Contractor shall be an independent contractor and not an employee or agent of the Company, except that the Contractor ",
-      "All policies of insurance required to be maintained by Contractor shall be written on reasonable and customary policy forms with conditions and exclus",
-      "You acknowledge and agree that, as an independent contractor, you will be solely responsible for all insurance, including but not limited to workers’ ",
-      "Contractor is an independent contractor and shall, at its sole expense, and without increase in the Contract Price, comply with all Laws and pay all m",
-      "The Company shall maintain insurance, at its expense, on its own behalf and on behalf of any Person who is or was a Covered Person or was serving at t"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 10,
-    "clause_type": "anti-assignment",
-    "original": "Neither party may assign this agreement without the prior written consent of the company.",
-    "rewritten": "\"Neither party may assign, delegate, or transfer all or part of its interest in or to this agreement without the prior written consent of the other party.\"",
-    "explanation": "Here are the changes and explanations:\n\n• Changed \"the company\" to \"the other party\": \nThis change makes the clause fairer by not favoring one party over the other. Previously, only the company had the right to consent to assignments, while the other party was restricted. By using \"the other party,\" both parties are treated equally.\n\n• Added \"delegate\" and \"transfer\": \nThese words clarify what actions are prohibited under the clause, making it clearer what the parties can and cannot do.\n\n• Changed \"without the prior written consent\" to \"without the prior written consent of the other party\": \nThis change is the same as the first point; it treats both parties equally and does not favor one over the other.\n\n• Changed \"this agreement\" to \"this agreement\" \nThis part remains the same and still restricts both parties from assigning, delegating, or transferring their interest in \"this agreement\"\n\n• Changed \"the company\" to \"the other party\" in the phrase \"prior written consent of the company\" \nThis change is the same as the first point; it treats both parties equally and does not favor one over the other.\n\n• Changed \"may assign\" to \"may assign, delegate, or transfer\": \nThis change clarifies the actions that are prohibited under the clause, making it clearer what the parties can and cannot do.\n\n• Changed \"its interest in\" to \"all or part of its interest in\": \nThis change makes the clause clearer by specifying that the restriction applies to both the whole interest and any part of it.\n\n• Changed \"to\" to \"in or to\": \nThis change is the same as the previous point; it makes the clause clearer by specifying that the restriction applies to both the whole interest and any part of it.\n\nNote: No additional protections (like notice periods) were added in this revised clause.",
-    "similar_clauses_used": [
-      "This Agreement may not be assigned by either party without the prior written consent of the other party and the Company.",
-      "Neither party may assign all or part of its interest in or to this Subscription Agreement without the consent of the other party in writing.",
-      "Neither this Agreement nor any interest therein shall be assigned by Purchaser or Shareholder without the prior written consent of the other party her",
-      "Neither party shall assign any of its rights or delegate any of its obligations under this Agreement, without the express prior written consent of the",
-      "Neither Party may assign this Agreement or any interest herein without the other’s prior written consent; provided that the Company may assign its int"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 11,
-    "clause_type": "non-disparagement",
-    "original": "The employee agrees not to make any negative statements about the company at any time.",
-    "rewritten": "\"The Employee agrees not to make any negative or disparaging statements about the Company, its officers, directors, employees, or agents, except as required in the good faith performance of their duties to the Company while they are employed by the Company. This provision does not prohibit the Employee from making truthful statements in response to legal process, required governmental testimony or filings, or administrative or arbitral proceedings, including but not limited to depositions in connection with such proceedings.\n\nIn addition, the Company agrees to refrain from making any negative or disparaging statements about the Employee, except as necessary to address a legitimate business concern or as required by law. The Company will also instruct its officers and directors to act in a similar manner.\n\nBoth parties agree to provide each other with reasonable notice and an opportunity to respond before issuing any public statement that may be perceived as negative or disparaging about the other party. The Company and the Employee agree to cooperate with each other to resolve any disputes or issues that may arise in accordance with this Agreement.\"",
-    "explanation": "Here are the changes made to the non-disparagement clause:\n\n* **Added specific exceptions**: The rewritten clause lists specific situations where the employee is allowed to make negative statements, such as in response to legal process or required governmental testimony. This makes the clause clearer and fairer.\n* **Defined the scope of the restriction**: The rewritten clause specifies that the restriction applies to statements about the company, its officers, directors, employees, or agents. This makes the clause clearer and helps avoid ambiguity.\n* **Added a mutual non-disparagement provision**: The Company is now prohibited from making negative statements about the employee, except in certain situations. This makes the clause fairer and more mutual.\n* **Added a notice and response requirement**: Both parties must provide each other with reasonable notice and an opportunity to respond before issuing any public statement that may be perceived as negative or disparaging. This adds a protection for the employee and makes the clause more reasonable.\n* **Added a cooperation requirement**: Both parties agree to cooperate with each other to resolve any disputes or issues that may arise. This makes the clause more collaborative and helps to prevent disputes.\n* **Clarified the employee's duties**: The rewritten clause specifies that the employee is only prohibited from making negative statements while they are employed by the company. This makes the clause clearer and helps to avoid confusion.\n* **Removed ambiguity around what constitutes a \"negative statement\"**: The rewritten clause uses the terms \"negative or disparaging statements\" to make it clear what is prohibited. This makes the clause clearer and helps to avoid ambiguity.\n\nOverall, the rewritten clause is fairer and clearer than the original clause, and it adds important protections for the employee. The mutual non-disparagement provision and notice and response requirements make the clause more reasonable and collaborative.",
-    "similar_clauses_used": [
-      "You agree not to make negative comments or otherwise disparage the Company or its officers, directors, employees, shareholders, agents or products oth",
-      "The Employee agrees that the Employee will not make any disparaging statements, comments, or remarks about any Released Party, except if testifying tr",
-      "Employee shall not, at any time during the term of employment and thereafter, make statements or representations, or otherwise communicate, directly o",
-      "Employee agrees not to make any oral or written statement, or take any other action (directly or indirectly), that disparages, criticizes, or damages ",
-      "Employee will refrain from making negative or disparaging remarks about the Company or the Company Releasees. Employee will not provide information or"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 12,
-    "clause_type": "ip ownership assignment",
-    "original": "All intellectual property created during the term of this agreement shall belong exclusively to the company.",
-    "rewritten": "\"Intellectual property created or developed during the term of this agreement shall be jointly owned by the company and the individual, with each party retaining the right to exploit and utilize their respective share of such intellectual property. The company and the individual shall work together to maintain and protect such intellectual property, and shall share any costs or expenses reasonably associated with its development, maintenance, and enforcement. Notwithstanding the foregoing, the company shall retain ownership of any intellectual property existing prior to the commencement of this agreement, or developed independently of any collaboration or joint work under this agreement.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses, along with explanations:\n\n* **Added \"or developed\"**: This change includes not only created, but also developed intellectual property in the scope of the agreement. This makes the clause more comprehensive and less likely to leave out any important intellectual property.\n* **Joint ownership**: The rewritten clause introduces joint ownership of intellectual property, which is a significant change from the original clause's exclusive ownership by the company. This makes the agreement more mutual and fair.\n* **Retained right to exploit and utilize**: The rewritten clause gives both parties the right to exploit and utilize their respective share of intellectual property, making the agreement more balanced. \n* **Shared costs and expenses**: The rewritten clause adds a requirement for shared costs and expenses associated with the development, maintenance, and enforcement of intellectual property. This adds a mutual obligation and makes the agreement more fair.\n* **Maintenance and protection**: The rewritten clause adds a requirement for the company and individual to work together to maintain and protect intellectual property. This adds a mutual obligation and makes the agreement more collaborative.\n* **Prior existing IP retained by company**: The rewritten clause makes it clear that the company retains ownership of any intellectual property existing prior to the agreement. This clarifies the company's rights and does not introduce any new burdens.\n* **Independently developed IP retained by individual**: The rewritten clause includes a note that if IP is developed independently, the individual retains ownership. This is a necessary clarification to prevent unintended assignment of IP.\n* **Scope of collaboration**: The rewritten clause clarifies that the joint ownership and shared responsibilities only apply to intellectual property created or developed during the term of the agreement. This makes the agreement more specific and less likely to lead to disputes.\n\nOverall, the rewritten clause is more comprehensive, mutual, and fair, making it a significant improvement over the original clause.",
-    "similar_clauses_used": [
-      "This Agreement is made solely for the benefit of and is binding upon the Company and the Subscriber, and no other person or entity shall acquire or ha",
-      "Each Party shall retain ownership of intellectual property rights existing as of the Effective Date, or developed or acquired independently of any Col",
-      "Except as set forth on Schedule 3(w) , the Company and its Subsidiary own, or have obtained valid licenses for, or other rights to use, the inventions",
-      "Each of the Company and its Subsidiaries owns or possesses the right to use all Intellectual Property Rights and all licenses and rights with respect ",
-      "The Company will, and will cause each of its Subsidiaries to, take all action necessary or advisable to maintain all of the Intellectual Property Righ"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 13,
-    "clause_type": "irrevocable or perpetual license",
-    "original": "The company grants the licensee an irrevocable, perpetual license to use the technology.",
-    "rewritten": "\"The company grants the licensee a perpetual license to use the technology, provided that the license shall terminate and revert to the company upon the expiration of the last patent covering the technology, subject to the following conditions:\n\n- The licensee shall have a reasonable time period to sell off its existing inventory of products incorporating the technology.\n- The company shall provide written notice to the licensee at least 6 months prior to the termination date, specifying the reasons for termination and providing assistance to facilitate the transition.\n- The licensee shall cease all utilization of the technology for any purpose whatsoever, including to manufacture, distribute or sell products, within 12 months of the termination date.\n- The company shall retain the right to enforce its rights against any third-party infringement of the technology and shall bear the expense of such actions, provided that the company shall not unreasonably withhold its consent for the licensee to enforce its own rights in the technology.\n- The licensee shall take all necessary actions to enable the company to satisfy its obligations under any federal law relating to the technology.\n- The company shall provide the licensee with prompt notice of any changes to the technology that may affect the license, and the licensee shall have the right to request the company to modify the license to reflect such changes.\"\n\nNote: This rewritten clause strikes a balance between the rights and obligations of the company and the licensee, providing for a perpetual license that can be terminated upon the expiration of the last patent covering the technology. It also includes mutual obligations and clear notice requirements to ensure a smooth transition.",
-    "explanation": "Here's a breakdown of the changes between the original and rewritten clauses:\n\n* **Added a termination condition**: The license is now perpetual but can terminate upon the expiration of the last patent covering the technology. This change makes the clause fairer by providing a clear end-point for the license.\n* **Specified conditions for termination**: The rewritten clause outlines conditions for termination, including notice periods, inventory requirements, and utilization restrictions. This change makes the clause clearer by providing a detailed roadmap for termination.\n* **Added mutual obligations**: Conditions such as the company's obligation to provide written notice, assistance for transition, and consent for third-party infringement enforcement make the terms mutual. This change makes the clause fairer by balancing the rights and obligations of both parties.\n* **Included notice periods and requirements**: The clause now requires the company to provide written notice at least 6 months prior to termination, specifying reasons and providing assistance. This change adds a missing protection and makes the clause clearer.\n* **Protected the licensee's interests**: The clause now requires the company to provide the licensee with prompt notice of changes to the technology and allows the licensee to request modifications to the license. This change adds a missing protection and makes the clause fairer.\n* **Retained the company's rights**: The company still retains the right to enforce its rights against third-party infringement and to satisfy its obligations under federal law. This change maintains the company's rights while making the clause more balanced.\n* **Specified the licensee's obligations**: The clause now requires the licensee to cease all utilization of the technology, sell off existing inventory, and take necessary actions to enable the company to satisfy its obligations. This change makes the clause clearer and fairer by outlining the licensee's responsibilities.\n* **Added a provision for consent**: The clause now requires the company's consent for the licensee to enforce its own rights in the technology. This change makes the clause clearer by specifying a necessary condition for the licensee's actions.\n\nOverall, the rewritten clause strikes a balance between the rights and obligations of the company and the licensee, providing for a perpetual license that can be terminated upon the expiration of the last patent covering the technology. The changes make the clause clearer, fairer, and more balanced.",
-    "similar_clauses_used": [
-      "Term Following the expiration of the Royalty Term with respect to a particular Licensed Product in the Field in a Jurisdiction, the license granted by",
-      "Except as provided for in Section 5, LICENSEE’s payment obligations shall extinguish if this Agreement is terminated. If the Agreement expires without",
-      "Each Party hereby grants to each other Party and its Subsidiaries a non-exclusive, worldwide, non-transferable, fully paid-up, royalty free, perpetual",
-      "LICENSOR has the right, but not the obligation, to enforce its rights against any third party infringement and to defend LICENSEE’s right to use the T",
-      "The Licensed Patents, Licensed Technology, or portions thereof may have been developed with financial or other assistance through grants or contracts "
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 14,
-    "clause_type": "effective date",
-    "original": "The effective date of this agreement shall be the date of the last signature.",
-    "rewritten": "\"This Agreement shall become effective on the date and time when the last of the parties has signed and delivered a counterpart signature page hereto, provided that such signature page is fully executed and delivered by all parties.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n* **Changed \"shall\" to \"become effective\"**: This change makes the language more specific and descriptive, clarifying the outcome of the parties' actions.\n* **Added \"date and time\"**: This addition provides precision, ensuring that the parties can identify the exact moment when the agreement becomes effective.\n* **Specified \"counterpart signature page\"**: This change ensures that the parties understand the form and type of document required for the agreement to become effective.\n* **Added \"provided that such signature page is fully executed and delivered by all parties\"**: This proviso addresses potential issues with incomplete or unsigned signature pages, ensuring that the agreement can only become effective once all parties have completed the necessary actions.\n* **Changed \"the date of the last signature\" to \"the date and time when the last of the parties has signed and delivered\"**: This change makes the language more inclusive, acknowledging that more than one party may be signing the agreement.\n* **Added \"hereto\"**: This term is a standard legal phrase indicating that a document is being referred to within another document, clarifying the relationship between the signature page and the main agreement.\n\nThe rewritten clause is clearer and more comprehensive than the original. It addresses potential issues with incomplete or unsigned signature pages and provides precision regarding the date and time when the agreement becomes effective. The changes do not introduce any one-sided terms and do not add any missing protections like notice periods.\n\nThis rewritten clause is more fair and equitable because it:\n\n* Provides clarity and precision regarding the effective date\n* Ensures that all parties complete the necessary actions before the agreement becomes effective\n* Specifies the form and type of document required for the agreement to become effective\n\nOverall, the rewritten clause is a more comprehensive and equitable agreement than the original.",
-    "similar_clauses_used": [
-      "This Agreement shall become effective upon the date and time when counterpart signature pages to this Agreement have been executed and delivered by th",
-      "The date of this Agreement, for purposes of performance, shall be the date when the last one of Seller or Purchaser has signed and delivered this Agre",
-      "This Agreement will be effective on the Effective Date. The term shall be for the period set forth on Exhibit A attached hereto (the “ Term ”).",
-      "This Agreement shall become effective as of the date written above (the \" Effective Date \") and shall continue for a period of two (2) year s , (the \"",
-      "This Agreement shall become effective on the eighth (8th) day after you sign this Agreement, so long as it has been signed by the Parties and has not "
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 15,
-    "clause_type": "expiration date",
-    "original": "This agreement shall expire on December 31, 2025, with no option for renewal.",
-    "rewritten": "\"This Agreement shall have an initial term beginning from the date of its execution by both parties hereto and shall expire on December 31, 2025, unless terminated earlier as provided for herein. Upon expiration of the initial term, this Agreement shall automatically renew for a period of one year, unless either party provides at least thirty (30) days' written notice to the other party prior to the expiration of the initial term or any renewal term, indicating that they do not wish to renew this Agreement. Either party may terminate this Agreement upon providing written notice to the other party at any time prior to the expiration of the initial term or any renewal term.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n• **Added automatic renewal term:** The rewritten clause introduces an automatic renewal term for one year, unless either party provides written notice to terminate the agreement. This change makes the clause clearer and provides more certainty for both parties about the agreement's duration.\n\n• **Added notice period for termination:** The rewritten clause requires at least 30 days' written notice for either party to terminate the agreement upon expiration of the initial term or any renewal term. This change adds a protection for both parties to prepare for the termination.\n\n• **Added flexibility to terminate early:** The rewritten clause allows either party to terminate the agreement at any time prior to the expiration of the initial term or any renewal term. This change makes the clause more fair by giving both parties flexibility.\n\n• **Changed \"no option for renewal\" to automatic renewal:** The rewritten clause no longer features the \"no option for renewal\" language, which was one-sided. This change makes the clause more mutual by providing an automatic renewal term.\n\n• **Clarified language for termination:** The rewritten clause uses clearer language to explain the termination process, making it easier for both parties to understand their obligations.\n\n• **Added a reference to \"herein\":** The rewritten clause refers to \"herein\" (meaning within this document) to clarify that the termination provisions are part of the agreement. This change adds clarity but is more of a stylistic adjustment.\n\n• **Replaced \"shall expire\" with \"expire on\":** The rewritten clause uses more precise language to specify the expiration date. This change adds clarity but is more of a stylistic adjustment.\n\nOverall, the rewritten clause is more comprehensive, clearer, and provides more protections for both parties. Missing protections like notice periods were added, and one-sided terms were made more mutual.",
-    "similar_clauses_used": [
-      "The term of this Agreement (the “Term”) shall commence upon the Effective Date and expire on May 21, 2022 unless terminated earlier as provided for he",
-      "The Option shall expire on EXPIRATION DATE (the “Expiration Date”), unless it is cancelled and/or forfeited earlier in accordance with the provisions ",
-      "The initial term of this Agreement shall end December 31, 2017. However, on each December 31, beginning with December 31, 2017, the term of this Agree",
-      "This Agreement shall be effective as of the Effective Date, and shall remain in effect until June 30, 2020 subject to earlier termination or extension",
-      "This Agreement shall have an initial term beginning from the date of its execution by both parties hereto and shall terminate on February 15 , 201 8 p"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 16,
-    "clause_type": "price restrictions",
-    "original": "The company may change the pricing at any time without notice to the other party.",
-    "rewritten": "\"The company acknowledges that the pricing for the services may change over time due to various market and business factors. The company reserves the right to adjust the pricing with reasonable notice to the other party, which shall be at least [insert number of days or weeks] before the effective date of the change. The other party shall have the right to request a copy of the revised pricing terms and conditions prior to the change taking effect. Any change in pricing shall be applied uniformly to all parties and shall not be detrimental to the other party's interests. The company shall provide a clear explanation for any pricing adjustment and shall demonstrate that the change is reasonable and justified. The other party may discuss and negotiate the revised pricing terms in good faith.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n• **Added acknowledgement of market and business factors**: The rewritten clause acknowledges that pricing changes are often due to external factors, making it more relatable and understandable for the other party.\n\n• **Added notice period**: The rewritten clause requires reasonable notice (\"at least [insert number] days or weeks\") before a pricing change takes effect, providing the other party with time to adjust.\n\n• **Added right to request revised pricing terms**: The rewritten clause grants the other party the right to request a copy of the revised pricing terms, allowing them to be informed and prepared for the change.\n\n• **Added requirement for uniform application**: The rewritten clause states that any change in pricing shall be applied uniformly to all parties, preventing unfair treatment.\n\n• **Added protection against detrimental changes**: The rewritten clause prohibits changes that would be detrimental to the other party's interests, ensuring fairness.\n\n• **Added explanation and justification requirement**: The rewritten clause requires the company to provide a clear explanation for any pricing adjustment and demonstrate that the change is reasonable and justified, promoting transparency.\n\n• **Added negotiation right**: The rewritten clause grants the other party the right to discuss and negotiate the revised pricing terms in good faith, promoting mutual agreement.\n\nThese changes make the clause fairer and clearer by:\n\n- Providing notice and time for adjustment\n- Granting the other party rights and protections\n- Promoting transparency and justification\n- Ensuring fairness and uniform application\n- Encouraging mutual agreement through negotiation\n\nThe rewritten clause is more mutual, as it:\n\n- Recognizes the company's right to adjust pricing\n- Requires the company to provide explanations and justification\n- Grants the other party rights and protections\n- Encourages negotiation and mutual agreement",
-    "similar_clauses_used": [
-      "The Distributor’s Price is exclusive of all taxes, freight, insurance, duties and other applicable charges, and the Manufacturer reserves the right to",
-      "If there is after the Effective Date, a change in legislation, regulation, business conditions, or Seller’s operations that result in an increase in S",
-      "Whenever notice is required to be given under this Note, unless otherwise provided herein, such notice shall be given in accordance with the Purchase ",
-      "The Company may at any time or from time to time modify or amend any or all of the provisions of the Plan, or stop future deferrals to the Plan, provi",
-      "No Seller Party nor Servicer will at any time, directly or indirectly, except upon ninety (90) days’ prior written notice to Buyer, change the date on"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 17,
-    "clause_type": "no-solicit of employees",
-    "original": "The employee shall not solicit or hire any employees of the company for 2 years after termination.",
-    "rewritten": "\"The Employee agrees that for a period of 2 years after termination of employment, they shall not directly or indirectly solicit, induce, or hire any current or former employee of the Company to leave their employment with the Company, or for any former employee to work for the Employee or any business that the Employee is involved with, without the prior written consent of the Company. The Company agrees that during the same period, it shall not solicit or hire the Employee for any position with the Company or its affiliates, without the prior written consent of the Employee. This clause does not prohibit the Employee from working with or hiring any former employee who has not been employed by the Company for at least 2 years prior to the Employee's termination, or who has provided written consent to work with or for the Employee.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n* **Added specificity to \"solicit or hire\"**: The rewritten clause clarifies that the prohibition includes direct or indirect solicitation, induction, or hiring, making it clear that the employee cannot influence or encourage others to leave their employment with the company.\n* **Expanded scope to include indirect actions**: By adding \"indirectly solicit, induce, or hire,\" the rewritten clause ensures that the employee cannot use third parties or other means to circumvent the prohibition.\n* **Added protection for former employees**: The rewritten clause allows employees to work with or hire former employees who are no longer under the company's employment contract or have provided written consent, making it easier for employees to maintain relationships after termination.\n* **Made the clause mutual by adding a reciprocal provision**: The rewritten clause includes a reciprocal provision that prohibits the company from soliciting or hiring the employee for 2 years after termination, without the employee's consent, making the clause fairer and more balanced.\n* **Added exceptions for employees who have not worked at the company for 2 years**: The rewritten clause provides an exception for employees who have not been employed by the company for at least 2 years prior to termination, reducing the impact of the no-solicit clause on long-term employees.\n* **Required written consent for certain actions**: The rewritten clause requires written consent from either the company or the employee before engaging in certain actions, such as soliciting or hiring, providing a clear and transparent process for both parties.\n* **Clarified the scope of the clause**: The rewritten clause explicitly states that it applies to current and former employees, as well as the employee's involvement with other businesses, making the clause clearer and more comprehensive.\n\nOverall, the rewritten clause provides more specific and nuanced protections for both the company and the employee, making it a more balanced and fair agreement.",
-    "similar_clauses_used": [
-      "During the Employment Period and for 18 months following any Date of Termination, you shall not, directly or indirectly, on behalf of yourself or of a",
-      "The Executive agrees that he shall not, for three (3) years from the date hereof, directly or indirectly solicit or induce any of the employees of the",
-      "In addition, during the term of Employee's employment by the Company and for a period of two (2) years after termination of such employment, neither E",
-      "Employee agrees that for a period of 2 years after the termination of her employment Agreement, Employee shall not recruit, attempt to recruit or dire",
-      "The Executive agrees that the Company has invested substantial time and effort in assembling and training its present staff of personnel. Accordingly,"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 18,
-    "clause_type": "post-termination services",
-    "original": "The service provider shall continue to provide transition services for 6 months after termination at no additional cost.",
-    "rewritten": "\"The parties agree that upon termination, the service provider shall continue to provide transition services for a period of six (6) months. During this time, the service provider and the client shall mutually agree on the scope and nature of the transition services to be provided, and shall work together to ensure a seamless transition of responsibilities. If the client requires additional transition services beyond the six (6) month period, the service provider shall provide them at a mutually agreed upon rate or fee. The parties acknowledge that the provision of transition services beyond the six (6) month period shall be subject to mutual agreement and may be subject to additional costs or fees.\"",
-    "explanation": "Here are the changes between the original and rewritten clauses:\n\n* **Added clarity on scope and nature of transition services**: The rewritten clause clarifies that the service provider and client will mutually agree on the scope and nature of transition services, making the process more transparent.\n* **Mutual agreement on additional services and costs**: The rewritten clause introduces mutual agreement on the provision of additional transition services beyond the six-month period, making the terms fairer and more flexible.\n* **Removed one-sided \"at no additional cost\" term**: The original clause stated that the service provider would provide transition services \"at no additional cost.\" The rewritten clause removes this one-sided term and introduces mutual agreement on costs, making the terms more balanced.\n* **Added flexibility for future arrangements**: The rewritten clause allows for mutual agreement on future arrangements, giving both parties flexibility to adapt to changing circumstances.\n* **Added acknowledgment of potential additional costs**: The rewritten clause acknowledges that the provision of transition services beyond the six-month period may be subject to additional costs or fees, giving both parties notice of potential additional expenses.\n* **Added notice that the six-month period is a minimum**: The Rewritten Clause does not explicitly state a notice period, but the six-month minimum does allow some time to prepare for the transition.\n* **Clarified expectations for a seamless transition**: The rewritten clause emphasizes the importance of a seamless transition, encouraging both parties to work together to achieve this goal.\n\nIn summary, the rewritten clause introduces mutual agreement, flexibility, and transparency, making the terms fairer and clearer for both parties.",
-    "similar_clauses_used": [
-      "The term of this Agreement will commence as of the Transition Date and continue for a period of six (6) months (the “ Term ”). Thereafter, the Term ma",
-      "The Parties acknowledge that, as set forth in Section 7.22 of the Asset Purchase Agreement, all transition services were to end by May 29, 2015. Servi",
-      "In the event of any termination, Manufacturer shall assist Company without additional charges to transition all relevant services to Company or its de",
-      "If you die before your Service terminates (or you die within three months of your termination of Service other than for Cause), then this Option will ",
-      "If you die before your Service terminates (or you die within three months of your termination of Service to the Company other than for cause), then th"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 19,
-    "clause_type": "revenue/profit sharing",
-    "original": "The company shall share 5% of net revenue with the partner, calculated solely by the company.",
-    "rewritten": "\"The company and the partner shall share 5% of net revenue in accordance with this revenue sharing arrangement. To calculate the partner's share, the company shall subtract all costs, expenses, and deductions from gross revenue, and then apply a formula agreed upon by both parties (or, in the absence of an agreed formula, a standard formula to be determined by the company with the partner's reasonable input). The partner's share shall be paid in the same currency and within the same timeframe as the company's other payments, unless otherwise agreed by the parties. Any discrepancies or disputes regarding the revenue sharing calculation shall be resolved through a joint process of review and reconciliation, with both parties having an opportunity to provide input and feedback.\"",
-    "explanation": "Here are the changes between the original clause and the rewritten clause:\n\n* **Inclusion of the partner in the revenue sharing arrangement**: The rewritten clause involves both the company and the partner in the revenue sharing arrangement, making it a mutual agreement rather than a one-sided term.\n* **Explanation of calculation method**: The rewritten clause explains the calculation method, including the subtraction of costs, expenses, and deductions from gross revenue, making it clearer for the partner.\n* **Formula agreement**: The rewritten clause allows for an agreed formula between the parties, which is a fairer and more flexible approach than a predetermined company formula.\n* **Standard formula in absence of agreement**: The rewritten clause provides a standard formula to be determined by the company with the partner's input, which adds a layer of protection and fairness for the partner.\n* **Payment terms**: The rewritten clause specifies the payment terms, including the currency and timeframe, which adds clarity and fairness for the partner.\n* **Dispute resolution process**: The rewritten clause introduces a joint process of review and reconciliation to resolve discrepancies or disputes, which is a fairer approach than a unilateral company decision.\n* **Notice period or timeline for calculation**: The rewritten clause does not explicitly mention a notice period or timeline for the calculation, but it does mention a joint process for review and reconciliation, which implies a certain timeframe for resolving disputes.\n* **Currency and payment timing**: It now includes a mutual agreement for the payments to be made in the same currency as well as the same timeframe as the company's other payments.",
-    "similar_clauses_used": [
-      "Any special allocations of income or gain pursuant to Section 5.05(b) or (c) hereof shall be taken into account in computing subsequent allocations pu",
-      "For purposes of maintaining the Capital Accounts and in determining the rights of the Partners among themselves, the Partnership’s items of income, ga",
-      "(a) The management, control and operation of the Partnership and the formulation and execution of business and investment policy shall be vested in th",
-      "Except as otherwise provided in this Section 6.1 (including as a result of the application of Section 6.3) and in Section 11.6(c), and after making an",
-      "The Limited Partner shall be entitled to receive distributions from the Partnership in respect of the Initial Class D Common Unit with respect to the "
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  },
-  {
-    "id": 20,
-    "clause_type": "volume restriction",
-    "original": "The vendor shall not sell more than 1000 units per quarter without prior written approval from the company.",
-    "rewritten": "\"The vendor shall not sell more than 1000 units per quarter without providing at least 14 days' prior written notice to the company, and the company shall respond to such notice in writing within 7 days to either approve or reject the sale in accordance with its customary business practices. In the event the company fails to respond within the 7-day period, the sale shall be deemed approved. The vendor shall comply with any reasonable requirements or conditions specified by the company in its approval, and the company shall not unreasonably withhold its approval of sales within the approved quarterly volume.\"",
-    "explanation": "Here are the changes and explanations:\n\n* **Added notice period and approval process**: The original clause only stated that the company needs to give prior written approval, but it didn't specify how long the vendor needs to give notice and how the company should respond. The rewritten clause adds a 14-day notice period for the vendor and a 7-day response period for the company, making it clearer and more predictable.\n\n* **Specified company's response period and consequences**: The rewritten clause states that if the company fails to respond within 7 days, the sale is deemed approved. This adds a clear consequence for the company's inaction, preventing potential disputes.\n\n* **Added requirement for vendor to comply with company's conditions**: The rewritten clause states that the vendor should comply with any reasonable requirements or conditions specified by the company. This makes the clause more balanced, as the original clause only mentioned the company's approval without specifying any conditions for the vendor.\n\n* **Added protection against unreasonable withholding of approval**: The rewritten clause states that the company should not unreasonably withhold its approval of sales within the approved quarterly volume. This adds a clear protection for the vendor, preventing the company from unfairly denying approval.\n\n* **Mutual agreement on quarterly volume**: While the original clause only mentioned the vendor's obligation to obtain prior written approval, the rewritten clause implies a mutual agreement on the quarterly volume. The company's response and approval process suggest that they have a say in the sales volume, making the clause more mutual.\n\nOverall, the rewritten clause adds clarity, predictability, and mutual agreement to the original clause, making it fairer and more balanced for both parties.",
-    "similar_clauses_used": [
-      "Except as specified herein or in the Plan, the Units may not be sold, assigned, pledged, exchanged, hypothecated or otherwise transferred, encumbered ",
-      "The grant of Performance Restricted Stock Units evidenced by this Agreement shall be forfeited for no consideration if this Agreement is not accepted ",
-      "Notwithstanding any provision to the contrary contained in this Agreement, the Company shall not make any Distribution to any Member on account of any",
-      "Sellers will not cause or permit the Companies to engage in any practice, take any action or enter into any transaction outside the Ordinary Course of",
-      "The requirement in Section 6.10 of the Agreement that the Company shall maintain not less than One Million Dollars ($1,000,000) in unrestricted cash a"
-    ],
-    "scores": {
-      "correctness": null,
-      "fairness": null,
-      "clarity": null
-    }
-  }
 ]
